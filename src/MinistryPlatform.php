@@ -1,4 +1,4 @@
-<?php namespace Blackpulp;
+<?php namespace Blackpulp\MinistryPlatform;
 
 use \Log;
 use \SoapClient;
