@@ -1,0 +1,20 @@
+{
+  "name": "blackpulp/ministryplatform",
+  "description": "Library to consume the MinistryPlatform SOAP XML API.",
+  "keywords": ["blackpulp", "ministryplatform"],
+  "authors": [
+    {
+      "name": "Blackpulp",
+      "email": "hello@blackpulp.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "Blackpulp\\MinistryPlatform\\": "src/"
+    }
+  }
+}
