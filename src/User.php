@@ -1,6 +1,6 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
-use Blackpulp\MinistryPlatform;
+use Blackpulp\MinistryPlatform\MinistryPlatform;
 use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
 
 /**
