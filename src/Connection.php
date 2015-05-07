@@ -1,6 +1,6 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
-use \Config;
+use \Illuminate\Support\Facades\Config;
 
 /**
  * MinistryPlatform Connection
