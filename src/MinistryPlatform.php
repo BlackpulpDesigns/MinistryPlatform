@@ -133,6 +133,8 @@ class MinistryPlatform extends Connection {
       throw new MinistryPlatformException("Authentication failed. Please check your username and password.");
     }
 
+    $this->user_id = (int)$response->UserID;
+
     return new User($response, $username);
   }
 
