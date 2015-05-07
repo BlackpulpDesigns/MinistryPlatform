@@ -142,7 +142,7 @@ class User
 
     foreach($result[0] as $role) {
 
-      $roles[] = $role['Role_ID'];
+      $roles[] = (int)$role->Role_ID;
 
     }
 
