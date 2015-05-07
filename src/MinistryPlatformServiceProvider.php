@@ -23,18 +23,26 @@ class MinistryPlatformServiceProvider extends ServiceProvider {
    *
    * @var bool
    */
-  protected $defer = true;
+  protected $defer = false;
 
   /**
    * Register bindings in the container.
    *
    * @return void
    */
-  public function register()
-  {
+
+  public function boot() {
+
     $this->publishes([
       __DIR__.'/config/mp.php' => config_path('mp.php'),
     ]);
+
+  }
+
+  public function register() {
+
+    $this->mergeConfigFrom(__DIR__.'/config/mp.php', 'mp');
+
   }
 
 }
