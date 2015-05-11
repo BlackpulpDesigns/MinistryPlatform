@@ -328,17 +328,15 @@ class MinistryPlatform extends Connection {
 
     $this->function = 'AttachFile';
 
-    $results = $this->SplitToArray( $this->execute()->AttachFileResult );
+    $response = $this->SplitToArray( $this->execute()->AttachFileResult );
+    
+    if( $response[0] == "0" ) {
 
-    if( $results[0] == 0 ) {
-
-      throw new MinistryPlatformException($results[2], (int)$results[1]);
+      throw new MinistryPlatformException($response[2], (int)$response[1]);
 
     }
 
-    return $results;
-
-    // {uploaded file name | error code | return message}
+    return $response;
   }
 
   public function updateDefaultImage(File $file)
@@ -347,22 +345,22 @@ class MinistryPlatform extends Connection {
     $this->parameters = array(
       'GUID'              => $this->guid,
       'Password'          => $this->pw,
-      'UniqueName'        => $file->guid,
+      'UniqueName'        => $file->getGuid(),
       'PageID'            => $file->page_id,
       'RecordID'          => $file->record_id 
     );
 
     $this->function = 'UpdateDefaultImage';
 
-    $results = $this->SplitToArray( $this->execute()->UpdateDefaultImageResult );
+    $response = $this->SplitToArray( $this->execute()->UpdateDefaultImageResult );
 
-    if( $results[0] == 0 ) {
+    if( $response[0] == "0" ) {
 
-      throw new MinistryPlatformException($results[2], (int)$results[1]);
+      throw new MinistryPlatformException($response[2], (int)$response[1]);
 
     }
 
-    return $response; // {uploaded file name | error code | return message}
+    return $response;
   }
 
 

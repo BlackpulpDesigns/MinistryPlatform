@@ -104,7 +104,7 @@ class File
 
     $response = $this->mp->attachFile($this);
 
-    $this->guid = $response[0];
+    $this->guid = str_replace(".", "", $response[0]);
     $this->message = $response[2];
 
     return true;
