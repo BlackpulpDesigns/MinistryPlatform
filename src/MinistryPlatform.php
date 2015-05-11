@@ -286,10 +286,10 @@ class MinistryPlatform extends Connection {
     $this->parameters = [
       'GUID' => $this->guid,
       'Password' => $this->pw,
-      'UserID' => $this->$user_id
+      'UserID' => $this->user_id
     ];
 
-    return $this->execute();
+    return $this->execute()->GetUserInfoResult;
 
   }
 
