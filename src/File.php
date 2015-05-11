@@ -133,7 +133,7 @@ class File
 
     if($this->is_image) {
 
-      $response = $mp->updateDefaultContact($this);
+      $response = $this->mp->updateDefaultContact($this);
 
       $this->guid = $response[0];
       $this->message = $response[2];
