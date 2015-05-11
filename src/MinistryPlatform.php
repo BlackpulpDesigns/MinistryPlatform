@@ -3,10 +3,6 @@
 use \Log;
 use \SoapClient;
 use \SoapFault;
-use Blackpulp\MinistryPlatform\Connection;
-use Blackpulp\MinistryPlatform\Record;
-use Blackpulp\MinistryPlatform\User;
-use Blackpulp\MinistryPlatform\StoredProcedureResult;
 use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
 
 /**
@@ -292,6 +288,65 @@ class MinistryPlatform extends Connection {
     return new StoredProcedureResult($this->execute()->GetUserInfoResult);
 
   }
+
+  public function attachFile(File $file) {
+
+    $this->parameters = array(
+      'GUID'            => $this->guid,
+      'Password'          => $this->pw,
+      'FileContents'        => $file->binary,
+      'FileName'          => $file->name,
+      'PageID'          => $file->page_id,
+      'RecordID'          => $file->record_id,
+      'FileDescription'     => $file->description,
+      'IsImage'         => $file->is_image,
+      'ResizeLongestDimension'  => $file->pixels
+    );
+
+    $this->function = 'AttachFile';
+
+    $results = $this->SplitToArray( $this->execute() );
+
+    if( $results[1] > 0 ) {
+
+      throw new MinistryPlatformException($results[2], (int)$results[1]);
+
+    }
+
+    return $results;
+
+    // {uploaded file name | error code | return message}
+  }
+
+  public function updateDefaultImage(File $file)
+  {
+
+    $this->parameters = array(
+      'GUID'              => $this->guid,
+      'Password'          => $this->pw,
+      'UniqueName'        => $file->guid,
+      'PageID'            => $file->page_id,
+      'RecordID'          => $file->record_id 
+    );
+
+    $this->function = 'UpdateDefaultImage';
+
+    $results = $this->SplitToArray( $this->execute() );
+
+    if( $results[1] > 0 ) {
+
+      throw new MinistryPlatformException($results[2], (int)$results[1]);
+
+    }
+    
+    return $response; // {uploaded file name | error code | return message}
+  }
+
+
+
+
+
+
 
   /**
    * Convert an array to a request string.
