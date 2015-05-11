@@ -328,9 +328,9 @@ class MinistryPlatform extends Connection {
 
     $this->function = 'AttachFile';
 
-    $results = $this->SplitToArray( $this->execute() );
+    $results = $this->SplitToArray( $this->execute()->AttachFileResult );
 
-    if( $results[1] > 0 ) {
+    if( $results[0] == 0 ) {
 
       throw new MinistryPlatformException($results[2], (int)$results[1]);
 
@@ -354,9 +354,9 @@ class MinistryPlatform extends Connection {
 
     $this->function = 'UpdateDefaultImage';
 
-    $results = $this->SplitToArray( $this->execute() );
+    $results = $this->SplitToArray( $this->execute()->UpdateDefaultImageResult );
 
-    if( $results[1] > 0 ) {
+    if( $results[0] == 0 ) {
 
       throw new MinistryPlatformException($results[2], (int)$results[1]);
 
