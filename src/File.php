@@ -94,11 +94,11 @@ class File
     $record_id,
     $is_image,
     $pixels,
-    $mp = new MinistryPlatform(),
+    $mp = null
   ) {
 
     $this->id = 0;
-    $this->mp = $mp;
+    $this->mp = is_null($mp) ? new MinistryPlatform() : $mp;
     $this->name = $file_name;
     $this->description = $description;
     $this->binary = file_get_contents($temp_name);
