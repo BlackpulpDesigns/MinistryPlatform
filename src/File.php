@@ -17,54 +17,47 @@ use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
 class File
 {   
   /**
-   * User_ID
-   * 
-   * @var int
-   */
-  protected $id;
-
-  /**
    * The description stored on the new File record
    * @var string
    */
-  protected $description;
+  public $description;
 
   /**
    * Stored whether the file is an image.
    * @var boolean
    */
-  protected $is_image;
+  public $is_image;
 
   /**
    * The byte array of binary data for the file.
    * @var binary
    */
-  protected $binary;
+  public $binary;
 
   /**
    * The name of the file
    * @var string
    */
-  protected $name;
+  public $name;
 
   /**
    * The MinistryPlatform Page ID the file is associated with
    * @var integer
    */
-  protected $page_id;
+  public $page_id;
 
   /**
    * The record ID the file is associated with.
    * @var integer
    */
-  protected $record_id;
+  public $record_id;
 
   /**
    * The number of pixels to resize the longest side of an image. 
    * Enter a value of 0 to keep the original dimensions.
    * @var integer
    */
-  protected $pixels;
+  public $pixels;
 
   /**
    * An instance of MinistryPlatform
@@ -97,7 +90,6 @@ class File
     $mp = null
   ) {
 
-    $this->id = 0;
     $this->mp = is_null($mp) ? new MinistryPlatform() : $mp;
     $this->name = $file_name;
     $this->description = $description;
