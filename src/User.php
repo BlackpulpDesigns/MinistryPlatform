@@ -133,6 +133,22 @@ class User
 
   }
 
+  public function getInfo() {
+
+    $mp = new MinistryPlatform($this->id);
+    $mp->setFunction("GetUserInfo");
+    $mp->setParameters([
+      'GUID' => $mp->guid,
+      'Password' => $mp->pw,
+      'UserID' => $this->id
+    ]);
+
+    $result = $mp->execute();
+
+    dd($result);
+
+  }
+
 
   protected function setSecurityRoles() {
 

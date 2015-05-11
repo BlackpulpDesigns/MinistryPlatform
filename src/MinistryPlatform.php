@@ -74,6 +74,22 @@ class MinistryPlatform extends Connection {
   }
 
   /**
+   * 
+   */
+  
+  public function setFunction($function) {
+
+    $this->function = $function;
+
+  }
+
+  public function setParameters(array $parameters) {
+
+    $this->parameters = $parameters;
+
+  }
+
+  /**
    * Execute the API call.
    * 
    * Responsible for sending the MinistryPlatform API call and 
@@ -256,6 +272,18 @@ class MinistryPlatform extends Connection {
     }
 
     return $results;
+  }
+
+  /**
+   * GetUserInfo() API call
+   *
+   * 
+   */
+  
+  public function getUserInfo() {
+
+
+
   }
 
   /**
