@@ -282,7 +282,14 @@ class MinistryPlatform extends Connection {
   
   public function getUserInfo() {
 
+    $mp->setFunction("GetUserInfo");
+    $mp->setParameters([
+      'GUID' => $this->guid,
+      'Password' => $this->pw,
+      'UserID' => $this->$user_id
+    ]);
 
+    return $this->execute();
 
   }
 

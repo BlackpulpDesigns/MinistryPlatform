@@ -72,6 +72,9 @@ class User
    * @var array
    */
   protected $roles = [];
+
+
+
   
   public function __construct($user, $username) {
 
@@ -136,16 +139,9 @@ class User
   public function getInfo() {
 
     $mp = new MinistryPlatform($this->id);
-    $mp->setFunction("GetUserInfo");
-    $mp->setParameters([
-      'GUID' => $mp->guid,
-      'Password' => $mp->pw,
-      'UserID' => $this->id
-    ]);
+    $info = $mp->getUserInfo();
 
-    $result = $mp->execute();
-
-    dd($result);
+    dd($info);
 
   }
 
