@@ -47,10 +47,10 @@ class StoredProcedureResult
   
   public function __construct($result) {
 
-    $this->result = simplexml_load_string($result->ExecuteStoredProcedureResult->any);
+    $this->result = simplexml_load_string($result->any);
     $this->checkForErrors();
 
-    $this->schema = simplexml_load_string($result->ExecuteStoredProcedureResult->schema);
+    $this->schema = simplexml_load_string($result->schema);
     $this->setTableCount();
     $this->setTables();
     

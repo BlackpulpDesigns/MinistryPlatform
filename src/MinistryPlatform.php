@@ -174,7 +174,7 @@ class MinistryPlatform extends Connection {
       'RequestString' => $this->ConvertToString($request)
     ];
 
-    return new StoredProcedureResult( $this->execute() );
+    return new StoredProcedureResult( $this->execute()->ExecuteStoredProcedureResult );
   }
 
   /**
@@ -289,7 +289,7 @@ class MinistryPlatform extends Connection {
       'UserID' => $this->user_id
     ];
 
-    return $this->execute()->GetUserInfoResult;
+    return new StoredProcedureResult($this->execute()->GetUserInfoResult);
 
   }
 
