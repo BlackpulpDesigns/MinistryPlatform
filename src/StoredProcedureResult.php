@@ -77,6 +77,15 @@ class StoredProcedureResult
   }
 
   /**
+   * Retrieve a single table.
+   */
+  public function getTable($key = 0) {
+
+    return $this->tables[$key];
+
+  }
+
+  /**
    * Get the Raw response object.
    *
    * @return SimpleXMLElement
