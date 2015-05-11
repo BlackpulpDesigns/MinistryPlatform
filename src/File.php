@@ -20,44 +20,44 @@ class File
    * The description stored on the new File record
    * @var string
    */
-  public $description;
+  protected $description;
 
   /**
    * Stored whether the file is an image.
    * @var boolean
    */
-  public $is_image;
+  protected $is_image;
 
   /**
    * The byte array of binary data for the file.
    * @var binary
    */
-  public $binary;
+  protected $binary;
 
   /**
    * The name of the file
    * @var string
    */
-  public $name;
+  protected $name;
 
   /**
    * The MinistryPlatform Page ID the file is associated with
    * @var integer
    */
-  public $page_id;
+  protected $page_id;
 
   /**
    * The record ID the file is associated with.
    * @var integer
    */
-  public $record_id;
+  protected $record_id;
 
   /**
    * The number of pixels to resize the longest side of an image. 
    * Enter a value of 0 to keep the original dimensions.
    * @var integer
    */
-  public $pixels;
+  protected $pixels;
 
   /**
    * An instance of MinistryPlatform
@@ -117,9 +117,45 @@ class File
 
   }
 
+  public function getIsImage() {
+
+    return $this->is_image;
+
+  }
+
+  public function getDescription() {
+
+    return $this->description;
+
+  }
+
   public function getMessage() {
 
     return $this->message;
+
+  }
+
+  public function getBinary() {
+
+    return $this->binary;
+
+  }
+
+  public function getPageId() {
+
+    return $this->page_id;
+
+  }
+
+  public function getRecordId() {
+
+    return $this->record_id;
+
+  }
+
+  public function getPixels() {
+
+    return $this->pixels;
 
   }
 

@@ -317,13 +317,13 @@ class MinistryPlatform extends Connection {
     $this->parameters = array(
       'GUID'            => $this->guid,
       'Password'          => $this->pw,
-      'FileContents'        => $file->binary,
-      'FileName'          => $file->name,
-      'PageID'          => $file->page_id,
-      'RecordID'          => $file->record_id,
-      'FileDescription'     => $file->description,
-      'IsImage'         => $file->is_image,
-      'ResizeLongestDimension'  => $file->pixels
+      'FileContents'        => $file->getBinary(),
+      'FileName'          => $file->getName(),
+      'PageID'          => $file->getPageId(),
+      'RecordID'          => $file->getRecordId(),
+      'FileDescription'     => $file->getDescription(),
+      'IsImage'         => $file->getIsImage(),
+      'ResizeLongestDimension'  => $file->getPixels()
     );
 
     $this->function = 'AttachFile';
@@ -346,8 +346,8 @@ class MinistryPlatform extends Connection {
       'GUID'              => $this->guid,
       'Password'          => $this->pw,
       'UniqueName'        => $file->getGuid(),
-      'PageID'            => $file->page_id,
-      'RecordID'          => $file->record_id 
+      'PageID'            => $file->getPageId(),
+      'RecordID'          => $file->getRecordId()
     );
 
     $this->function = 'UpdateDefaultImage';
