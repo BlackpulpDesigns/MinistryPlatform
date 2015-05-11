@@ -200,6 +200,29 @@ class MinistryPlatform extends Connection {
 
   }
 
+  public function makeFile(
+    $file_name,
+    $temp_name,
+    $description,
+    $page_id,
+    $record_id,
+    $is_image,
+    $pixels
+  ) {
+
+    return new File(
+      $file_name,
+      $temp_name,
+      $description,
+      $page_id,
+      $record_id,
+      $is_image,
+      $pixels,
+      $this
+    );
+
+  }
+
   /**
    * Add Record call to MinistryPlatform.
    * 
@@ -338,7 +361,7 @@ class MinistryPlatform extends Connection {
       throw new MinistryPlatformException($results[2], (int)$results[1]);
 
     }
-    
+
     return $response; // {uploaded file name | error code | return message}
   }
 
