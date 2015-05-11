@@ -141,7 +141,7 @@ class User
     $mp = new MinistryPlatform($this->id);
     $info = $mp->getUserInfo();
 
-    dd($info);
+    return $info;
 
   }
 
@@ -152,13 +152,7 @@ class User
     $result = $mp->storedProcedure("api_Common_GetUserRoles", ["UserID" => $this->id])->getTables();
     $roles = [];
 
-    foreach($result[0] as $role) {
-
-      $roles[] = (int)$role->Role_ID;
-
-    }
-
-    $this->roles = $roles;
+    $this->roles = $result;
 
   }
 

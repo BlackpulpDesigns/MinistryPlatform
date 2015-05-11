@@ -116,20 +116,74 @@ class StoredProcedureResult
 
     /** Iterate over tables */
     foreach($this->result->NewDataSet as $table) {
-      
-      $records = [];
 
       foreach((array)$table as $contents) {
-        foreach((array)$contents as $field=>$record) {
-          $records[$field] = is_numeric($record) ? (int)$record : $record;
-        }
+        
+        $records = $this->processTableContents($contents);
+        
         $tables[$table_index] = $records;
         $table_index++;
+
       }
       
     }
 
     $this->tables = $tables;
+
+  }
+
+  protected function processTableContents($contents) {
+
+    $records = [];
+    if( is_object($contents) && get_class($contents) == "SimpleXMLElement" ) {
+
+      $records = $this->processXMLElement($contents);
+
+    }
+    else {
+
+      foreach($contents as $field=>$record) {
+
+        $records[$field] = $this->processLookupValues( $this->processXMLElement($record) );
+
+      }
+
+    }
+
+    return $records;
+
+  }
+
+  protected function processXMLElement(\SimpleXMLElement $element) {
+
+    $records = [];
+    foreach((array)$element as $field=>$record) {
+      
+      $records[$field] = is_numeric($record) ? (int)$record : $record;
+
+    }
+
+    return $records;
+
+  }
+
+  protected function processLookupValues($lookup) {
+
+    $keys = array_keys($lookup);
+
+    if(count($keys) >= 2) {
+
+      $new_key = $keys[0];
+      $new_value_key = $keys[1];
+
+    }
+    else {
+
+      $new_value_key = $keys[0];
+
+    }
+
+    return $lookup[$new_value_key] ;
 
   }
 
