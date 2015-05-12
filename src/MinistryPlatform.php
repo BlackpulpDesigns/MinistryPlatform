@@ -375,6 +375,34 @@ class MinistryPlatform extends Connection {
 
   }
 
+  public function getRecurringRecords(RecurringRecord $recurring_record) {
+
+    $this->parameters = array(
+      'GUID' => $this->guid,
+      'Password' => $this->pw,
+      'Pattern' => $recurring_record->getPattern(),
+      'Frequency' => $recurring_record->getFrequency(),
+      'StartBy' => $this->formatSoapDateTime( $recurring_record->getStartBy() ),
+      'EndBy' => $this->formatSoapDateTime( $recurring_record->getEndBy() ),
+      'EndAfter' => $recurring_record->getEndAfter(),
+      'SpecificDay' => $recurring_record->getSpecificDay(),
+      'OrderDay' => $recurring_record->getOrderDay(),
+      'SpecificMonth' => $recurring_record->getSpecificMonth(),
+      'Sunday' => $recurring_record->getSunday(),
+      'Monday' => $recurring_record->getMonday(),
+      'Tuesday' => $recurring_record->getTuesday(),
+      'Wednesday' => $recurring_record->getWednesday(),
+      'Thursday' => $recurring_record->getThursday(),
+      'Friday' => $recurring_record->getFriday(),
+      'Saturday' => $recurring_record->getSaturday()
+    );
+
+    $this->function = 'GetRecurringRecords';
+
+    return new StoredProcedureResult($this->execute()->GetRecurringRecordsResult);
+
+  }
+
   /**
    * GetUserInfo() API call
    *

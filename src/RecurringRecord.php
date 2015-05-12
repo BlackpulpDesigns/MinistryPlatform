@@ -115,6 +115,12 @@ class RecurringRecord extends Record
 
   protected $first_date;
 
+  /**
+   * All details for the current series
+   * @var array
+   */
+  protected $series_details;
+
 
   
   public function __construct(Record $record) {
@@ -136,6 +142,12 @@ class RecurringRecord extends Record
   public function getFirstDate() {
 
     $return = $this->record->getMpInstance()->getFirstDateInSeries($this);
+
+  }
+
+  public function getSeriesDetails() {
+
+    $this->series_details = $this->record->getMpInstance()->getRecurringRecords();
 
   }
 
