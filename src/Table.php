@@ -29,7 +29,7 @@ class Table
 
   }
 
-  protected function record($fields) {
+  protected function makeRecord($fields) {
 
     return new Record($this->table, $this->primary_key, $fields);
 
