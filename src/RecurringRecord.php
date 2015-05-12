@@ -141,13 +141,17 @@ class RecurringRecord extends Record
 
   public function getFirstDate() {
 
-    $return = $this->record->getMpInstance()->getFirstDateInSeries($this);
+    $this->first_date = $this->record->getMpInstance()->getFirstDateInSeries($this);
+
+    return $this;
 
   }
 
   public function getSeriesDetails() {
 
     $this->series_details = $this->record->getMpInstance()->getRecurringRecords();
+
+    return $this;
 
   }
 
