@@ -177,7 +177,7 @@ class RecurringRecord extends Record
    */
   public function getCsvSubTabIds()
   {
-      return $this->csv_sub_tab_ids;
+    return $this->csv_sub_tab_ids;
   }
 
   /**
@@ -189,9 +189,9 @@ class RecurringRecord extends Record
    */
   protected function setCsvSubTabIds($csv_sub_tab_ids)
   {
-      $this->csv_sub_tab_ids = $csv_sub_tab_ids;
+    $this->csv_sub_tab_ids = $csv_sub_tab_ids;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -202,7 +202,7 @@ class RecurringRecord extends Record
    */
   public function getSubTabSourceRecordId()
   {
-      return $this->sub_tab_source_record_id;
+    return $this->sub_tab_source_record_id;
   }
 
   /**
@@ -215,9 +215,9 @@ class RecurringRecord extends Record
    */
   protected function setSubTabSourceRecordId($sub_tab_source_record_id)
   {
-      $this->sub_tab_source_record_id = $sub_tab_source_record_id;
+    $this->sub_tab_source_record_id = $sub_tab_source_record_id;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -227,7 +227,7 @@ class RecurringRecord extends Record
    */
   public function getPattern()
   {
-      return $this->pattern;
+    return $this->pattern;
   }
 
   /**
@@ -239,9 +239,9 @@ class RecurringRecord extends Record
    */
   protected function setPattern($pattern)
   {
-      $this->pattern = $pattern;
+    $this->pattern = $pattern;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -252,7 +252,7 @@ class RecurringRecord extends Record
    */
   public function getFrequency()
   {
-      return $this->frequency;
+    return $this->frequency;
   }
 
   /**
@@ -265,9 +265,9 @@ class RecurringRecord extends Record
    */
   protected function setFrequency($frequency)
   {
-      $this->frequency = $frequency;
+    $this->frequency = $frequency;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -277,7 +277,7 @@ class RecurringRecord extends Record
    */
   public function getStartBy()
   {
-      return $this->start_by;
+    return $this->start_by;
   }
 
   /**
@@ -289,9 +289,9 @@ class RecurringRecord extends Record
    */
   protected function setStartBy($start_by)
   {
-      $this->start_by = $start_by;
+    $this->start_by = $start_by;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -301,7 +301,7 @@ class RecurringRecord extends Record
    */
   public function getEndBy()
   {
-      return $this->end_by;
+    return $this->end_by;
   }
 
   /**
@@ -313,9 +313,9 @@ class RecurringRecord extends Record
    */
   protected function setEndBy($end_by)
   {
-      $this->end_by = $end_by;
+    $this->end_by = $end_by;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -325,7 +325,7 @@ class RecurringRecord extends Record
    */
   public function getEndAfter()
   {
-      return $this->end_after;
+    return $this->end_after;
   }
 
   /**
@@ -337,9 +337,9 @@ class RecurringRecord extends Record
    */
   protected function setEndAfter($end_after)
   {
-      $this->end_after = $end_after;
+    $this->end_after = $end_after;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -349,7 +349,7 @@ class RecurringRecord extends Record
    */
   public function getSpecificDay()
   {
-      return $this->specific_day;
+    return $this->specific_day;
   }
 
   /**
@@ -361,9 +361,9 @@ class RecurringRecord extends Record
    */
   protected function setSpecificDay($specific_day)
   {
-      $this->specific_day = $specific_day;
+    $this->specific_day = $specific_day;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -373,7 +373,7 @@ class RecurringRecord extends Record
    */
   public function getOrderDay()
   {
-      return $this->order_day;
+    return $this->order_day;
   }
 
   /**
@@ -385,9 +385,9 @@ class RecurringRecord extends Record
    */
   protected function setOrderDay($order_day)
   {
-      $this->order_day = $order_day;
+    $this->order_day = $order_day;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -397,7 +397,7 @@ class RecurringRecord extends Record
    */
   public function getSpecificMonth()
   {
-      return $this->specific_month;
+    return $this->specific_month;
   }
 
   /**
@@ -409,9 +409,9 @@ class RecurringRecord extends Record
    */
   protected function setSpecificMonth($specific_month)
   {
-      $this->specific_month = $specific_month;
+    $this->specific_month = $specific_month;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -421,7 +421,7 @@ class RecurringRecord extends Record
    */
   public function getSunday()
   {
-      return $this->sunday;
+    return $this->sunday;
   }
 
   /**
@@ -433,9 +433,9 @@ class RecurringRecord extends Record
    */
   protected function setSunday($sunday)
   {
-      $this->sunday = $sunday;
+    $this->sunday = $sunday;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -445,7 +445,7 @@ class RecurringRecord extends Record
    */
   public function getMonday()
   {
-      return $this->monday;
+    return $this->monday;
   }
 
   /**
@@ -457,9 +457,9 @@ class RecurringRecord extends Record
    */
   protected function setMonday($monday)
   {
-      $this->monday = $monday;
+    $this->monday = $monday;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -469,7 +469,7 @@ class RecurringRecord extends Record
    */
   public function getTuesday()
   {
-      return $this->tuesday;
+    return $this->tuesday;
   }
 
   /**
@@ -481,9 +481,9 @@ class RecurringRecord extends Record
    */
   protected function setTuesday($tuesday)
   {
-      $this->tuesday = $tuesday;
+    $this->tuesday = $tuesday;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -493,7 +493,7 @@ class RecurringRecord extends Record
    */
   public function getWednesday()
   {
-      return $this->wednesday;
+    return $this->wednesday;
   }
 
   /**
@@ -505,9 +505,9 @@ class RecurringRecord extends Record
    */
   protected function setWednesday($wednesday)
   {
-      $this->wednesday = $wednesday;
+    $this->wednesday = $wednesday;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -517,7 +517,7 @@ class RecurringRecord extends Record
    */
   public function getThursday()
   {
-      return $this->thursday;
+    return $this->thursday;
   }
 
   /**
@@ -529,9 +529,9 @@ class RecurringRecord extends Record
    */
   protected function setThursday($thursday)
   {
-      $this->thursday = $thursday;
+    $this->thursday = $thursday;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -541,7 +541,7 @@ class RecurringRecord extends Record
    */
   public function getFriday()
   {
-      return $this->friday;
+    return $this->friday;
   }
 
   /**
@@ -553,9 +553,9 @@ class RecurringRecord extends Record
    */
   protected function setFriday($friday)
   {
-      $this->friday = $friday;
+    $this->friday = $friday;
 
-      return $this;
+    return $this;
   }
 
   /**
@@ -565,7 +565,7 @@ class RecurringRecord extends Record
    */
   public function getSaturday()
   {
-      return $this->saturday;
+    return $this->saturday;
   }
 
   /**
@@ -577,8 +577,8 @@ class RecurringRecord extends Record
    */
   protected function setSaturday($saturday)
   {
-      $this->saturday = $saturday;
+    $this->saturday = $saturday;
 
-      return $this;
+    return $this;
   }
 }

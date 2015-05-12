@@ -77,7 +77,7 @@ class Record
   public function save() {
     $return = [];
     
-    if( in_array($this->primary_key, $this->fields) ) {
+    if( array_key_exists($this->primary_key, $this->fields) ) {
 
       $return = $this->mp->updateRecord($this);
 
@@ -162,7 +162,7 @@ class Record
 
   protected function setRecordId() {
 
-    if( in_array($this->primary_key, $this->fields) ) {
+    if( array_key_exists($this->primary_key, $this->fields) ) {
 
       $this->record_id = $this->fields[$this->primary_key];
 
