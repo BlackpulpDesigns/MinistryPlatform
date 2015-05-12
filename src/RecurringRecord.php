@@ -13,7 +13,7 @@ use Carbon\Carbon;
 /**
  * This class handles record-specific interactions.
  */
-class RecurringRecord extends Record
+class RecurringRecord
 {   
   
   /**
