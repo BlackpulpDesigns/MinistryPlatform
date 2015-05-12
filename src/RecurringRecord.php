@@ -121,6 +121,12 @@ class RecurringRecord extends Record
    */
   protected $series_details;
 
+  /**
+   * Value returned from MinistryPlatform that describes the created series.
+   * @var string
+   */
+  protected $series_description;
+
 
   
   public function __construct(Record $record) {
@@ -147,9 +153,33 @@ class RecurringRecord extends Record
 
   }
 
+  public function getSeriesDescription() {
+
+    if( !isset($this->series_description) || $this->series_description == "" ) {
+      $this->setSeriesDetails();
+    }
+
+    return $this->series_description;
+
+  }
+
   public function getSeriesDetails() {
 
-    $this->series_details = $this->record->getMpInstance()->getRecurringRecords($this);
+    if( !isset($this->series_details) || count($this->series_details) == 0 ) {
+      $this->setSeriesDetails();
+    }
+
+    return $this->series_details;
+
+  }
+
+  public function setSeriesDetails() {
+
+    $details = $this->record->getMpInstance()->getRecurringRecords($this);
+    $this->series_details = $details->getTable(0);
+
+    $description = $details->getTable(1);
+    $this->series_description = $description['PatternName'];
 
     return $this;
 
