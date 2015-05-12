@@ -237,7 +237,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setPattern([type] $pattern)
+  protected function setPattern($pattern)
   {
       $this->pattern = $pattern;
 
@@ -287,7 +287,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setStartBy(datetime $start_by)
+  protected function setStartBy($start_by)
   {
       $this->start_by = $start_by;
 
@@ -311,7 +311,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setEndBy(datetime $end_by)
+  protected function setEndBy($end_by)
   {
       $this->end_by = $end_by;
 
