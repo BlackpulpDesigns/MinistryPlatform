@@ -104,7 +104,7 @@ class MinistryPlatform extends Connection {
     catch(SoapFault $soap_error) {
 
       Log::error($soap_error->faultstring);
-      return false;
+      throw new MinistryPlatformException($soap_error->faultstring);
       exit;
     }
 
@@ -114,8 +114,10 @@ class MinistryPlatform extends Connection {
       ]);
     }
     catch(SoapFault $soap_error) {
-      Log::error($soap_error->faultstring);
-      $request = false;
+      Log::error( $soap_error->faultstring );
+      Log::error( $this->client->__getLastRequest() );
+      $request = $soap_error->faultstring . "\r\nXML REQUEST: " . $this->client->__getLastRequest();
+      throw new MinistryPlatformException($request);
     }
     return $request;
   }
@@ -306,8 +308,8 @@ class MinistryPlatform extends Connection {
       'CopySubTabsFromRecordID' => $recurring_record->getSubTabSourceRecordId(),
       'Pattern' => $recurring_record->getPattern(),
       'Frequency' => $recurring_record->getFrequency(),
-      'StartBy' => $recurring_record->getStartBy(),
-      'EndBy' => $recurring_record->getEndBy(),
+      'StartBy' => $this->formatSoapDateTime( $recurring_record->getStartBy() ),
+      'EndBy' => $this->formatSoapDateTime( $recurring_record->getEndBy() ),
       'EndAfter' => $recurring_record->getEndAfter(),
       'SpecificDay' => $recurring_record->getSpecificDay(),
       'OrderDay' => $recurring_record->getOrderDay(),
@@ -324,6 +326,7 @@ class MinistryPlatform extends Connection {
     $this->function = 'AddRecurringRecords';
 
     $response = $this->execute();
+
     $results = $this->SplitToArray($response->AddRecurringRecordsResult);
     if( $results[0] <= 0 ) {
 
@@ -342,8 +345,8 @@ class MinistryPlatform extends Connection {
       'Password' => $this->pw,
       'Pattern' => $recurring_record->getPattern(),
       'Frequency' => $recurring_record->getFrequency(),
-      'StartBy' => $recurring_record->getStartBy(),
-      'EndBy' => $recurring_record->getEndBy(),
+      'StartBy' => $this->formatSoapDateTime( $recurring_record->getStartBy() ),
+      'EndBy' => $this->formatSoapDateTime( $recurring_record->getEndBy() ),
       'EndAfter' => $recurring_record->getEndAfter(),
       'SpecificDay' => $recurring_record->getSpecificDay(),
       'OrderDay' => $recurring_record->getOrderDay(),
@@ -361,7 +364,6 @@ class MinistryPlatform extends Connection {
 
     $response = $this->execute();
 
-    dd($response);
     $results = $response->GetFirstDateInSeriesResult;
     if( $results == 0 ) {
 
@@ -489,6 +491,11 @@ class MinistryPlatform extends Connection {
   public static function SplitToArray($string) {
     $array = explode("|",$string); // separates the pipe delimited response string into an array
     return $array; // [0] = new ID
+  }
+
+  public static function formatSoapDateTime($timestamp) {
+    $timestamp = strtotime($timestamp);
+    return date('Y-m-d', $timestamp) . 'T' . date('H:i:s', $timestamp);
   }
 
 }

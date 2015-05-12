@@ -31,7 +31,7 @@ class RecurringRecord extends Record
    * to be copied into the recurrence * series members.
    * @var int
    */
-  protected $sub_tab_source_record_id = "";
+  protected $sub_tab_source_record_id;
 
   /**
    * The interval of the recurrence (Daily = 1, Weekly = 2, Monthly = 3, Yearly = 4)
@@ -88,13 +88,13 @@ class RecurringRecord extends Record
    * Recurring series will occur on the specific day of the week.
    * @var boolean
    */
-  protected $sunday;
-  protected $monday;
-  protected $tuesday;
-  protected $wednesday;
-  protected $thursday;
-  protected $friday;
-  protected $saturday;
+  protected $sunday = false;
+  protected $monday = false;
+  protected $tuesday = false;
+  protected $wednesday = false;
+  protected $thursday = false;
+  protected $friday = false;
+  protected $saturday = false;
 
   /**
    * The Series ID returned from the API call
@@ -120,14 +120,6 @@ class RecurringRecord extends Record
   public function __construct(Record $record) {
     
     $this->record = $record;
-
-    $this->sunday = 0;
-    $this->monday = 0;
-    $this->tuesday = 0;
-    $this->wednesday = 0;
-    $this->thursday = 0;
-    $this->friday = 0;
-    $this->saturday = 0;
 
   }
 
