@@ -176,7 +176,13 @@ class RecurringRecord extends Record
   public function setSeriesDetails() {
 
     $details = $this->record->getMpInstance()->getRecurringRecords($this);
-    $this->series_details = $details->getTable(0);
+    $rows = [];
+    foreach($details->getTable(0) as $item) {
+
+      $rows[] = new Carbon($item);
+
+    }
+    $this->series_details = $rows;
 
     $description = $details->getTable(1);
     $this->series_description = $description['PatternName'];
