@@ -172,4 +172,10 @@ class Record
 
   }
 
+  public function makeRecurring() {
+
+    return new RecurringRecord($this);
+
+  }
+
 }
