@@ -149,7 +149,7 @@ class RecurringRecord extends Record
 
   public function getSeriesDetails() {
 
-    $this->series_details = $this->record->getMpInstance()->getRecurringRecords();
+    $this->series_details = $this->record->getMpInstance()->getRecurringRecords($this);
 
     return $this;
 
