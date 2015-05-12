@@ -86,7 +86,8 @@ class Record
     else {
 
       $return = $this->mp->addRecord($this);
-
+      $key = $this->primary_key;
+      $this->fields[$key] = $return[0];
     }
 
     $this->record_id = $return[0];
