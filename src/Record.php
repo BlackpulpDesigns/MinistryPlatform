@@ -79,21 +79,20 @@ class Record
     
     if( in_array($this->primary_key, $this->fields) ) {
 
-      $return = $this->mp->updateRecord($this->table, $this->primary_key, $this->fields);
+      $return = $this->mp->updateRecord($this);
 
     }
 
     else {
 
-      $return = $this->mp->addRecord($this->table, $this->primary_key, $this->fields);
+      $return = $this->mp->addRecord($this);
 
     }
 
     $this->record_id = $return[0];
     $this->message = $return[2];
 
-    return json_encode($return, JSON_PRETTY_PRINT);
-
+    return $this;
   }
 
   /**
@@ -120,6 +119,38 @@ class Record
 
   }
 
+  public function getTable() {
+
+    return $this->table;
+
+  }
+
+  public function getFields() {
+
+    return $this->fields;
+
+  }
+
+  public function getPrimaryKey() {
+
+    return $this->primary_key;
+
+  }
+
+  public function getMpInstance() {
+
+    return $this->mp;
+
+  }
+
+  public function setFields(array $fields) {
+
+    $this->fields = $fields;
+
+    return $this;
+
+  }
+
   /**
    * Store the current Record ID.
    * 
@@ -136,6 +167,8 @@ class Record
       $this->record_id = $this->fields[$this->primary_key];
 
     }
+
+    return $this;
 
   }
 

@@ -107,7 +107,7 @@ class File
     $this->guid = str_replace(".", "", $response[0]);
     $this->message = $response[2];
 
-    return true;
+    return $this;
 
   }
 
@@ -174,14 +174,14 @@ class File
       $this->guid = $response[0];
       $this->message = $response[2];
 
-      return true;
-
     }
     else {
 
       throw new MinistryPlatformException("File must be an image. Cannot make a non-image the default.");
 
     }
+
+    return $this;
 
   }
 

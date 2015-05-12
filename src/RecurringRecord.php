@@ -27,18 +27,18 @@ class RecurringRecord extends Record
    * A comma separated list of sub_page_ids that should be copied
    * @var string
    */
-  protected $csv_sub_tab_ids;
+  protected $csv_sub_tab_ids = "";
 
   /**
    * This is the primary key value for the record which serves as the model containing sub tab data 
    * to be copied into the recurrence * series members.
    * @var int
    */
-  protected $sub_tab_source_record_id;
+  protected $sub_tab_source_record_id = "";
 
   /**
    * The interval of the recurrence (Daily = 1, Weekly = 2, Monthly = 3, Yearly = 4)
-   * @var [type]
+   * @var int
    */
   protected $pattern;
   /**
@@ -98,16 +98,78 @@ class RecurringRecord extends Record
   protected $thursday;
   protected $friday;
   protected $saturday;
+
+  /**
+   * The Series ID returned from the API call
+   * @var int
+   */
+  protected $series_id;
+
+  /**
+   * The message returned from the most recent API call.
+   * @var string
+   */
+  protected $message;
+
+  /**
+   * The first date in the recurring series.
+   * @var datetime
+   */
+
+  protected $first_date;
+
+
   
   public function __construct(Record $record) {
     
     $this->record = $record;
 
+    $this->sunday = 0;
+    $this->monday = 0;
+    $this->tuesday = 0;
+    $this->wednesday = 0;
+    $this->thursday = 0;
+    $this->friday = 0;
+    $this->saturday = 0;
+
   }
 
+  public function create() {
+
+    $return = $this->record->getMpInstance()->createRecurringSeries($this);
+
+    $this->series_id = $return[0];
+    $this->message = $return[2];
+
+    return $this;
+  }
+
+  public function getFirstDate() {
+
+    $return = $this->record->getMpInstance()->getFirstDateInSeries($this);
+
+  }
+
+
+  /**
+   * Gets the current Record object
+   * @return Blackpulp\MinistryPlatform\Record
+   */
   public function getRecord() {
 
     return $this->record;
+
+  }
+
+  /**
+   * Set the current Record property.
+   * @param Record $record
+   */
+  public function setRecord(Record $record) {
+
+    $this->record = $record;
+
+    return $this;
 
   }
 

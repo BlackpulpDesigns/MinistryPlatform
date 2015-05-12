@@ -233,15 +233,15 @@ class MinistryPlatform extends Connection {
    * @return array
    */
 
-  public function addRecord($table, $primary_key, $fields) {
+  public function addRecord(Record $record) {
 
     $this->parameters = array(
       'GUID'             => $this->guid,
       'Password'         => $this->pw,
       'UserID'           => $this->user_id,
-      'TableName'        => $table,
-      'PrimaryKeyField'  => $primary_key,
-      'RequestString'    => $this->ConvertToString($fields)
+      'TableName'        => $record->getTable(),
+      'PrimaryKeyField'  => $record->getPrimaryKey(),
+      'RequestString'    => $this->ConvertToString($record->getFields())
     );
 
     $this->function = 'AddRecord';
@@ -269,15 +269,15 @@ class MinistryPlatform extends Connection {
    * @return array
    */
 
-  public function updateRecord($table, $primary_key, $fields) {
+  public function updateRecord(Record $record) {
 
     $this->parameters = array(
       'GUID'             => $this->guid,
       'Password'         => $this->pw,
       'UserID'           => $this->user_id,
-      'TableName'        => $table,
-      'PrimaryKeyField'  => $primary_key,
-      'RequestString'    => $this->ConvertToString($fields)
+      'TableName'        => $record->getTable(),
+      'PrimaryKeyField'  => $record->getPrimaryKey(),
+      'RequestString'    => $this->ConvertToString($record->getFields())
     );
 
     $this->function = 'UpdateRecord';
@@ -291,6 +291,86 @@ class MinistryPlatform extends Connection {
     }
 
     return $results;
+  }
+
+  public function createRecurringSeries(RecurringRecord $recurring_record) {
+
+    $this->parameters = array(
+      'GUID'             => $this->guid,
+      'Password'         => $this->pw,
+      'UserID'           => $this->user_id,
+      'TableName'        => $recurring_record->record->getTable(),
+      'PrimaryKeyField'  => $recurring_record->record->getPrimaryKey(),
+      'RequestString'    => $this->ConvertToString($recurring_record->record->getFields()),
+      'csvSubTabsToCopy' => $recurring_record->getCsvSubTabIds(),
+      'CopySubTabsFromRecordID' => $recurring_record->getSubTabSourceRecordId(),
+      'Pattern' => $recurring_record->getPattern(),
+      'Frequency' => $recurring_record->getFrequency(),
+      'StartBy' => $recurring_record->getStartBy(),
+      'EndBy' => $recurring_record->getEndBy(),
+      'EndAfter' => $recurring_record->getEndAfter(),
+      'SpecificDay' => $recurring_record->getSpecificDay(),
+      'OrderDay' => $recurring_record->getOrderDay(),
+      'SpecificMonth' => $recurring_record->getSpecificMonth(),
+      'Sunday' => $recurring_record->getSunday(),
+      'Monday' => $recurring_record->getMonday(),
+      'Tuesday' => $recurring_record->getTuesday(),
+      'Wednesday' => $recurring_record->getWednesday(),
+      'Thursday' => $recurring_record->getThursday(),
+      'Friday' => $recurring_record->getFriday(),
+      'Saturday' => $recurring_record->getSaturday()
+    );
+
+    $this->function = 'AddRecurringRecords';
+
+    $response = $this->execute();
+    $results = $this->SplitToArray($response->AddRecurringRecordsResult);
+    if( $results[0] <= 0 ) {
+
+      throw new MinistryPlatformException($results[2], (int)$results[1]);
+
+    }
+
+    return $results;
+
+  }
+
+  public function getFirstDateInSeries(RecurringRecord $recurring_record) {
+
+    $this->parameters = array(
+      'GUID' => $this->guid,
+      'Password' => $this->pw,
+      'Pattern' => $recurring_record->getPattern(),
+      'Frequency' => $recurring_record->getFrequency(),
+      'StartBy' => $recurring_record->getStartBy(),
+      'EndBy' => $recurring_record->getEndBy(),
+      'EndAfter' => $recurring_record->getEndAfter(),
+      'SpecificDay' => $recurring_record->getSpecificDay(),
+      'OrderDay' => $recurring_record->getOrderDay(),
+      'SpecificMonth' => $recurring_record->getSpecificMonth(),
+      'Sunday' => $recurring_record->getSunday(),
+      'Monday' => $recurring_record->getMonday(),
+      'Tuesday' => $recurring_record->getTuesday(),
+      'Wednesday' => $recurring_record->getWednesday(),
+      'Thursday' => $recurring_record->getThursday(),
+      'Friday' => $recurring_record->getFriday(),
+      'Saturday' => $recurring_record->getSaturday()
+    );
+
+    $this->function = 'GetFirstDateInSeries';
+
+    $response = $this->execute();
+
+    dd($response);
+    $results = $response->GetFirstDateInSeriesResult;
+    if( $results == 0 ) {
+
+      throw new MinistryPlatformException($results[2], (int)$results[1]);
+
+    }
+
+    return $results;
+
   }
 
   /**

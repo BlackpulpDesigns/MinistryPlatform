@@ -114,6 +114,8 @@ class StoredProcedureResult
 
     $this->table_count = count((array)$this->result->NewDataSet);
 
+    return $this;
+
   }
 
   /**
@@ -138,6 +140,8 @@ class StoredProcedureResult
     }
 
     $this->tables = $tables;
+
+    return $this;
 
   }
 

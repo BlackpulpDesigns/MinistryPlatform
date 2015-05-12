@@ -154,6 +154,8 @@ class User
 
     $this->roles = $result;
 
+    return $this;
+
   }
 
 }
