@@ -1,8 +1,5 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
-use MinistryPlatform;
-use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
-
 /**
  * MinistryPlatform Records
  * 
