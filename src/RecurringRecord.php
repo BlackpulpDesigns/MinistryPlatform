@@ -187,7 +187,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setCsvSubTabIds($csv_sub_tab_ids)
+  public function setCsvSubTabIds($csv_sub_tab_ids)
   {
     $this->csv_sub_tab_ids = $csv_sub_tab_ids;
 
@@ -213,7 +213,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setSubTabSourceRecordId($sub_tab_source_record_id)
+  public function setSubTabSourceRecordId($sub_tab_source_record_id)
   {
     $this->sub_tab_source_record_id = $sub_tab_source_record_id;
 
@@ -237,7 +237,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setPattern($pattern)
+  public function setPattern($pattern)
   {
     $this->pattern = $pattern;
 
@@ -263,7 +263,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setFrequency($frequency)
+  public function setFrequency($frequency)
   {
     $this->frequency = $frequency;
 
@@ -287,7 +287,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setStartBy($start_by)
+  public function setStartBy($start_by)
   {
     $this->start_by = $start_by;
 
@@ -311,7 +311,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setEndBy($end_by)
+  public function setEndBy($end_by)
   {
     $this->end_by = $end_by;
 
@@ -335,7 +335,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setEndAfter($end_after)
+  public function setEndAfter($end_after)
   {
     $this->end_after = $end_after;
 
@@ -359,7 +359,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setSpecificDay($specific_day)
+  public function setSpecificDay($specific_day)
   {
     $this->specific_day = $specific_day;
 
@@ -383,7 +383,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setOrderDay($order_day)
+  public function setOrderDay($order_day)
   {
     $this->order_day = $order_day;
 
@@ -407,7 +407,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setSpecificMonth($specific_month)
+  public function setSpecificMonth($specific_month)
   {
     $this->specific_month = $specific_month;
 
@@ -431,7 +431,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setSunday($sunday)
+  public function setSunday($sunday)
   {
     $this->sunday = $sunday;
 
@@ -455,7 +455,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setMonday($monday)
+  public function setMonday($monday)
   {
     $this->monday = $monday;
 
@@ -479,7 +479,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setTuesday($tuesday)
+  public function setTuesday($tuesday)
   {
     $this->tuesday = $tuesday;
 
@@ -503,7 +503,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setWednesday($wednesday)
+  public function setWednesday($wednesday)
   {
     $this->wednesday = $wednesday;
 
@@ -527,7 +527,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setThursday($thursday)
+  public function setThursday($thursday)
   {
     $this->thursday = $thursday;
 
@@ -551,7 +551,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setFriday($friday)
+  public function setFriday($friday)
   {
     $this->friday = $friday;
 
@@ -575,7 +575,7 @@ class RecurringRecord extends Record
    *
    * @return self
    */
-  protected function setSaturday($saturday)
+  public function setSaturday($saturday)
   {
     $this->saturday = $saturday;
 
