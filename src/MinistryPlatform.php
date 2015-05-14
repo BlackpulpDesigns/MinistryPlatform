@@ -155,7 +155,7 @@ class MinistryPlatform extends Connection {
 
   public function makeRecord($table, $fields, $primary_key) {
 
-    return new Record($this, $table, $fields, $primary_key);
+    return $this->makeTable($table, $primary_key)->makeRecord($fields);
 
   }
 

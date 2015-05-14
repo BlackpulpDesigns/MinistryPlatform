@@ -58,12 +58,11 @@ class Record
    */
   protected $message;
   
-  public function __construct(MinistryPlatform $mp, $table, $primary_key, $fields) {
+  public function __construct(Table $table, $fields) {
 
-    $this->mp = $mp;
+    $this->mp = $table->getMpInstance();
     $this->table = $table;
     $this->fields = $fields;
-    $this->primary_key = $primary_key;
     $this->setRecordId();
 
   }
@@ -77,7 +76,7 @@ class Record
   public function save() {
     $return = [];
     
-    if( array_key_exists($this->primary_key, $this->fields) ) {
+    if( array_key_exists($this->table->getPrimaryKey(), $this->fields) ) {
 
       $return = $this->mp->updateRecord($this);
 
@@ -86,7 +85,7 @@ class Record
     else {
 
       $return = $this->mp->addRecord($this);
-      $key = $this->primary_key;
+      $key = $this->table->getPrimaryKey();
       $this->fields[$key] = $return[0];
     }
 
@@ -122,7 +121,7 @@ class Record
 
   public function getTable() {
 
-    return $this->table;
+    return $this->table->getName();
 
   }
 
@@ -134,7 +133,7 @@ class Record
 
   public function getPrimaryKey() {
 
-    return $this->primary_key;
+    return $this->table->getPrimaryKey();
 
   }
 
@@ -163,9 +162,9 @@ class Record
 
   protected function setRecordId() {
 
-    if( array_key_exists($this->primary_key, $this->fields) ) {
+    if( array_key_exists($this->table->getPrimaryKey(), $this->fields) ) {
 
-      $this->record_id = $this->fields[$this->primary_key];
+      $this->record_id = $this->fields[$this->table->getPrimaryKey()];
 
     }
 

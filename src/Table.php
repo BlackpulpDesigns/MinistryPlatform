@@ -18,20 +18,38 @@ use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
 class Table
 {   
   protected $primary_key;
-  protected $table;
+  protected $table_name;
   protected $mp;
   
   public function __construct(MinistryPlatform $mp, $table, $primary_key=false) {
 
     $this->mp = $mp;
-    $this->table = $table;
+    $this->table_name = $table;
     $this->primary_key = $primary_key;
+
+  }
+
+  public function getPrimaryKey() {
+
+    return $this->primary_key;
+
+  }
+
+  public function getName() {
+
+    return $this->table_name;
+
+  }
+
+  public function getMpInstance() {
+
+    return $this->mp;
 
   }
 
   protected function makeRecord($fields) {
 
-    return new Record($this->table, $this->primary_key, $fields);
+    return new Record($this, $fields);
 
   }
 
