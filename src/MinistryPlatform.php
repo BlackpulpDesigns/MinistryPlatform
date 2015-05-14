@@ -153,7 +153,7 @@ class MinistryPlatform extends Connection {
    * @return Blackpulp\MinistryPlatform\Record
    */
 
-  public function makeRecord($table, $fields, $primary_key) {
+  public function makeRecord($table, $primary_key, $fields) {
 
     return $this->makeTable($table, $primary_key)->makeRecord($fields);
 
