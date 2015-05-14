@@ -2,6 +2,7 @@
 
 use Blackpulp\MinistryPlatform\MinistryPlatform;
 use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
+use SimpleXMLElement;
 
 /**
  * MinistryPlatform Stored Procedure Handling
@@ -13,6 +14,9 @@ use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
 
 /**
  * This class handles interactions with Stored Procedure results.
+ *
+ * More specifically, it provides a unified object used to interact with table-based
+ * results returned from various MinistryPlatform API calls.
  */
 
 class StoredProcedureResult
@@ -45,6 +49,12 @@ class StoredProcedureResult
    */
   protected $tables;
   
+  /**
+   * Initialize the object
+   * 
+   * @param SimpleXMLElement $result
+   * 
+   */
   public function __construct($result) {
 
     $this->result = simplexml_load_string($result->any);
@@ -145,6 +155,14 @@ class StoredProcedureResult
 
   }
 
+  /**
+   * Digest the table contents.
+   *
+   * Convert XML Element contents into one or more arrays of data.
+   * 
+   * @param  SimpleXMLElement $contents
+   * @return array 
+   */
   protected function processTableContents($contents) {
 
     $records = [];
@@ -167,7 +185,15 @@ class StoredProcedureResult
 
   }
 
-  protected function processXMLElement(\SimpleXMLElement $element) {
+  /**
+   * Process a single Element into an array of elements.
+   *
+   * Also detects nested elements and processes those, and handles some data type detection.
+   * 
+   * @param  SimpleXMLElement $element
+   * @return array
+   */
+  protected function processXMLElement(SimpleXMLElement $element) {
 
     $records = [];
     foreach((array)$element as $field=>$record) {
@@ -196,6 +222,12 @@ class StoredProcedureResult
 
   }
 
+  /**
+   * A helper method to process small tables of data quickly.
+   * 
+   * @param  array $lookup
+   * @return array
+   */
   protected function processLookupValues($lookup) {
 
     $keys = array_keys($lookup);

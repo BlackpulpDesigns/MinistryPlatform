@@ -11,7 +11,7 @@ use Carbon\Carbon;
  */
 
 /**
- * This class handles record-specific interactions.
+ * This class handles recurring record interactions.
  */
 class RecurringRecord
 {   
@@ -91,11 +91,41 @@ class RecurringRecord
    * @var boolean
    */
   protected $sunday = false;
+
+  /**
+   * Recurring series will occur on the specific day of the week.
+   * @var boolean
+   */
   protected $monday = false;
+
+  /**
+   * Recurring series will occur on the specific day of the week.
+   * @var boolean
+   */
   protected $tuesday = false;
+
+  /**
+   * Recurring series will occur on the specific day of the week.
+   * @var boolean
+   */
   protected $wednesday = false;
+
+  /**
+   * Recurring series will occur on the specific day of the week.
+   * @var boolean
+   */
   protected $thursday = false;
+
+  /**
+   * Recurring series will occur on the specific day of the week.
+   * @var boolean
+   */
   protected $friday = false;
+
+  /**
+   * Recurring series will occur on the specific day of the week.
+   * @var boolean
+   */
   protected $saturday = false;
 
   /**
@@ -130,13 +160,22 @@ class RecurringRecord
   protected $series_description;
 
 
-  
+  /**
+   * Instantiate the object.
+   * 
+   * @param Record $record
+   */
   public function __construct(Record $record) {
     
     $this->record = $record;
 
   }
 
+  /**
+   * Create the Recurring Records in MinistryPlatform.
+   * 
+   * @return RecurringRecord
+   */
   public function create() {
 
     $return = $this->record->getMpInstance()->createRecurringSeries($this);
@@ -147,6 +186,11 @@ class RecurringRecord
     return $this;
   }
 
+  /**
+   * Retrieve the first date in the current series.
+   * 
+   * @return string
+   */
   public function getFirstDate() {
 
     $this->first_date = $this->record->getMpInstance()->getFirstDateInSeries($this);
@@ -155,6 +199,11 @@ class RecurringRecord
 
   }
 
+  /**
+   * Return the description of the current series.
+   * 
+   * @return string
+   */
   public function getSeriesDescription() {
 
     if( !isset($this->series_description) || $this->series_description == "" ) {
@@ -165,6 +214,11 @@ class RecurringRecord
 
   }
 
+  /**
+   * Return an array of dates representing each instance of the current series.
+   * 
+   * @return array The array contains Carbon objects
+   */
   public function getSeriesDetails() {
 
     if( !isset($this->series_details) || count($this->series_details) == 0 ) {
@@ -175,6 +229,11 @@ class RecurringRecord
 
   }
 
+  /**
+   * Set the Series Details.
+   *
+   * @return RecurringRecord
+   */
   public function setSeriesDetails() {
 
     $details = $this->record->getMpInstance()->getRecurringRecords($this);

@@ -10,9 +10,12 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "nesbot/carbon": "~1.14"
+    "nesbot/carbon": "~1.14",
+    "michelf/php-markdown": "^1.0"
   },
-  "require-dev": {},
+  "require-dev": {
+    "phpdocumentor/phpdocumentor": "2.*"
+  },
   "autoload": {
     "psr-4": {
       "Blackpulp\\MinistryPlatform\\": "src/"

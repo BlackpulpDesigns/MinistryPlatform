@@ -15,6 +15,7 @@ use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
  * @package  Blackpulp\MinistryPlatform
  * @version  1.0
  */
+
 /**
  * This class handles the bulk of the MinistryPlatform API interactions.
  */
@@ -48,6 +49,11 @@ class MinistryPlatform extends Connection {
    */
   protected $user_id;
 
+  /**
+   * Initialize the MinistryPlatform Object
+   * @param integer $user_id the User_ID who is performing the API calls.
+   *   This is used for Audit Logging in MinistryPlatform.
+   */
   function __construct($user_id = 0) {
 
     $this->user_id = $user_id;
@@ -60,10 +66,12 @@ class MinistryPlatform extends Connection {
    * 
    * Responsible for sending the MinistryPlatform API call and 
    * returning the response.
+   * 
+   * @param string $function  The name of the API method
+   * @param array $parameters
    *
    * @return SimpleXMLObject
    */
-
   protected function execute($function, $parameters) { 
     
     try {
@@ -146,9 +154,11 @@ class MinistryPlatform extends Connection {
   }
 
   /**
+   * Create a new MinistryPlatform record object.
+   * 
    * @param string $table The name of the database table
-   * @param array $fields An array of field names and their values
    * @param string $primary_key The field name of the specified table's primary key.
+   * @param array $fields An array of field names and their values
    *
    * @return Blackpulp\MinistryPlatform\Record
    */
@@ -160,6 +170,8 @@ class MinistryPlatform extends Connection {
   }
 
   /**
+   * Create a MinistryPlatform Table object.
+   * 
    * @param string $name The name of the database table
    * @param string $primary_key The field name of the specified table's primary key.
    *
@@ -171,7 +183,20 @@ class MinistryPlatform extends Connection {
     return new Table($this, $name, $primary_key);
 
   }
-
+  /**
+   * Create a MinistryPlatform File object. Used for attaching files.
+   * 
+   * @param  string $file_name   The name of the file as it will be saved into MinistryPlatform.
+   * @param  string $temp_name   The absolute physical path of the temp file's name.
+   * @param  string $description  A description of the file.
+   * @param  integer $page_id     The Page_ID value of the Record's Table in MinistryPlatform.
+   * @param  integer $record_id   The ID of the Record the file will be attached to in MinistryPlatform.
+   * @param  boolean $is_image    Simple boolean to determine whether the file is an image.
+   * @param  integer $pixels      Number of pixels to resize the longest side of an image.
+   *   Use 0 to retain the original dimensions.
+   *   
+   * @return Blackpulp\MinistryPlatform\File
+   */
   public function makeFile(
     $file_name,
     $temp_name,
@@ -198,9 +223,7 @@ class MinistryPlatform extends Connection {
   /**
    * Add Record call to MinistryPlatform.
    * 
-   * @param string $table The name of the database table
-   * @param string $primary_key The field name of the specified table's primary key.
-   * @param array $fields An array of field names and their values
+   * @param Blackpulp\MinistryPlatform\Record $record
    *
    * @return array
    */
@@ -234,9 +257,7 @@ class MinistryPlatform extends Connection {
   /**
    * Update Record call to MinistryPlatform.
    *  
-   * @param string $table The name of the database table
-   * @param string $primary_key The field name of the specified table's primary key.
-   * @param array $fields An array of field names and their values
+   * @param Blackpulp\MinistryPlatform\Record $record
    *
    * @return array
    */
@@ -266,6 +287,12 @@ class MinistryPlatform extends Connection {
     return $results;
   }
 
+  /**
+   * Create a set of recurring records in MinistryPlatform
+   * 
+   * @param  RecurringRecord $recurring_record
+   * @return array 
+   */
   public function createRecurringSeries(RecurringRecord $recurring_record) {
 
     $parameters = array(
@@ -309,6 +336,12 @@ class MinistryPlatform extends Connection {
 
   }
 
+  /**
+   * Get the first date of a recurring series.
+   * 
+   * @param  RecurringRecord $recurring_record
+   * @return array $results
+   */
   public function getFirstDateInSeries(RecurringRecord $recurring_record) {
 
     $parameters = array(
@@ -346,6 +379,19 @@ class MinistryPlatform extends Connection {
 
   }
 
+  /**
+   * Get a list of each recurring date in a RecurringRecord object.
+   *
+   * Retrieve two tables of information from MinistryPlatform based on the values
+   * of a RecurringRecord object. First, get back a table with a date 
+   * representing every instance of the series. Second, get back a 
+   * one-sentence description of the series (i.e. Every Tuesday from 
+   * 1/1/2015 to 12/31/2015). 
+   * 
+   * @param  RecurringRecord $recurring_record
+   * 
+   * @return Blackpulp\MinistryPlatform\StoredProcedureResult 
+   */
   public function getRecurringRecords(RecurringRecord $recurring_record) {
 
     $parameters = array(
@@ -377,7 +423,7 @@ class MinistryPlatform extends Connection {
   /**
    * GetUserInfo() API call
    *
-   * 
+   * @return Blackpulp\MinistryPlatform\StoredProcedureResult 
    */
   
   public function getUserInfo() {
@@ -393,6 +439,12 @@ class MinistryPlatform extends Connection {
 
   }
 
+  /**
+   * Attach a file to a record in MinistryPlatform.
+   * 
+   * @param  File $file
+   * @return array
+   */
   public function attachFile(File $file) {
 
     $parameters = array(
@@ -420,6 +472,12 @@ class MinistryPlatform extends Connection {
     return $response;
   }
 
+  /**
+   * If the current file is an image, makes that image the Record's default.
+   * 
+   * @param  File  $file
+   * @return array
+   */
   public function updateDefaultImage(File $file)
   {
 
@@ -443,11 +501,6 @@ class MinistryPlatform extends Connection {
 
     return $response;
   }
-
-
-
-
-
 
 
   /**
@@ -492,6 +545,16 @@ class MinistryPlatform extends Connection {
     return $array; // [0] = new ID
   }
 
+  /**
+   * Convert the format of a datetime string.
+   *
+   * This is used to allow datetime strings to be sent from PHP to the SOAP
+   * XML API where a datetime data type is required.
+   * 
+   * @param  string $timestamp Any datetime string
+   * 
+   * @return string  A different datetime string
+   */
   public static function formatSoapDateTime($timestamp) {
     $timestamp = strtotime($timestamp);
     return date('Y-m-d', $timestamp) . 'T' . date('H:i:s', $timestamp);

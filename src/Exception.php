@@ -31,6 +31,12 @@ class Exception extends \Exception {
    */
   protected $code;
 
+  /**
+   * Initialize the Exception object.
+   * 
+   * @param string  $message
+   * @param integer $code
+   */
   public function __construct($message, $code=0) {
 
     $this->message = $message;

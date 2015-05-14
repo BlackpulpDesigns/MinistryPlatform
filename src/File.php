@@ -12,7 +12,7 @@ use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
  */
 
 /**
- * This class handles user-specific interactions.
+ * This class handles File-based interactions.
  */
 class File
 {   
@@ -78,7 +78,20 @@ class File
    */
 
   protected $guid;
-  
+
+  /**
+   * Initialize a File object.
+   * 
+   * @param  string $file_name   The name of the file as it will be saved into MinistryPlatform.
+   * @param  string $temp_name   The absolute physical path of the temp file's name.
+   * @param  string $description  A description of the file.
+   * @param  integer $page_id     The Page_ID value of the Record's Table in MinistryPlatform.
+   * @param  integer $record_id   The ID of the Record the file will be attached to in MinistryPlatform.
+   * @param  boolean $is_image    Simple boolean to determine whether the file is an image.
+   * @param  integer $pixels      Number of pixels to resize the longest side of an image.
+   *   Use 0 to retain the original dimensions.
+   * @param Blackpulp\MinistryPlatform\MinistryPlatform $mp
+   */
   public function __construct(
     $file_name,
     $temp_name,
@@ -100,6 +113,11 @@ class File
     $this->pixels = $pixels;
   }
 
+  /**
+   * Attach a file to a record.
+   * 
+   * @return [type] [description]
+   */
   public function attach() {
 
     $response = $this->mp->attachFile($this);
@@ -111,60 +129,110 @@ class File
 
   }
 
+  /**
+   * Get the name of the current file
+   * 
+   * @return string
+   */
   public function getName() {
 
     return $this->name;
 
   }
 
+  /**
+   * Whether the current file is an image.
+   * 
+   * @return boolean
+   */
   public function getIsImage() {
 
     return $this->is_image;
 
   }
 
+  /**
+   * Get the file's description
+   * 
+   * @return string
+   */
   public function getDescription() {
 
     return $this->description;
 
   }
 
+  /**
+   * Return the message from the last successful API call.
+   * 
+   * @return string
+   */
   public function getMessage() {
 
     return $this->message;
 
   }
 
+  /**
+   * Retrieves the binary representation of the current file.
+   * 
+   * @return binary 
+   */
   public function getBinary() {
 
     return $this->binary;
 
   }
 
+  /**
+   * Get the File's Page_ID
+   * 
+   * @return int
+   */
   public function getPageId() {
 
     return $this->page_id;
 
   }
 
+  /**
+   * Return the file's associated Record ID
+   * 
+   * @return int
+   */
   public function getRecordId() {
 
     return $this->record_id;
 
   }
 
+  /**
+   * Get the pixel resizing value
+   * 
+   * @return int
+   */
   public function getPixels() {
 
     return $this->pixels;
 
   }
 
+  /**
+   * Retrieve the File GUID
+   * @return string
+   */
   public function getGuid() {
 
     return $this->guid;
 
   }
 
+  /**
+   * Make the current file the default for a record. Note that the 
+   * is_image property must be true.
+   * 
+   * @return $this
+   */
   public function makeDefault() {
 
     if($this->is_image) {

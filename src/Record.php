@@ -4,7 +4,7 @@ use Blackpulp\MinistryPlatform\MinistryPlatform;
 use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
 
 /**
- * MinistryPlatform Records
+ * MinistryPlatform Record
  * 
  * @author Ken Mulford <ken@blackpulp.com>
  * @category MinistryPlatform
@@ -45,6 +45,12 @@ class Record
    */
   protected $message;
   
+  /**
+   * Instantiate a Record object.
+   * 
+   * @param Table  $table
+   * @param [type] $fields
+   */
   public function __construct(Table $table, $fields) {
 
     $this->table = $table;
@@ -105,35 +111,89 @@ class Record
 
   }
 
+  /**
+   * Get the table name of the current record.
+   * 
+   * @return string
+   */
   public function getTable() {
 
     return $this->table->getName();
 
   }
 
+  /**
+   * Get the array of fields of the current record.
+   * 
+   * @return array
+   */
   public function getFields() {
 
     return $this->fields;
 
   }
 
+  /**
+   * Update the list of fields on the current record.
+   * 
+   * @param array $fields
+   */
+  public function setFields(array $fields) {
+
+    $this->fields = $fields;
+
+    return $this;
+
+  }
+
+  /**
+   * Get the array of fields of the current record.
+   *
+   * @param string $name The name of the field being requested.
+   * 
+   * @return array
+   */
+  public function getField($name) {
+
+    return $this->fields[$name];
+
+  }
+
+  /**
+   * Update the list of fields on the current record.
+   *
+   * @param string $name The name of the field being updated.
+   * @param string $value The value of the field being updated.
+   * 
+   * @param array $fields
+   */
+  public function setField($name, $value) {
+
+    $this->fields[$name] = $value;
+
+    return $this;
+
+  }
+
+  /**
+   * Retrieve the name of the Primary_Key field
+   * 
+   * @return string
+   */
   public function getPrimaryKey() {
 
     return $this->table->getPrimaryKey();
 
   }
 
+  /**
+   * Retrieve the current MinistryPlatform instance
+   * 
+   * @return Blackpulp\MinistryPlatform\MinistryPlatform
+   */
   public function getMpInstance() {
 
     return $this->table->getMpInstance();
-
-  }
-
-  public function setFields(array $fields) {
-
-    $this->fields = $fields;
-
-    return $this;
 
   }
 
@@ -145,7 +205,6 @@ class Record
    *
    * @return void
    */
-
   protected function setRecordId() {
 
     if( array_key_exists($this->table->getPrimaryKey(), $this->fields) ) {
@@ -158,6 +217,11 @@ class Record
 
   }
 
+  /**
+   * Create a RecurringRecord object from the current record.
+   * 
+   * @return Blackpulp\MinistryPlatform\RecurringRecord
+   */
   public function makeRecurring() {
 
     return new RecurringRecord($this);

@@ -14,7 +14,9 @@ use \Illuminate\Support\ServiceProvider;
  */
 
 /**
- * This class handles the bulk of the MinistryPlatform API interactions.
+ * The service provider allows Laravel to publish the config file,
+ * and can be configured to allow the MP instance to be used
+ * via dependency injection.
  */
 class MinistryPlatformServiceProvider extends ServiceProvider {
 
