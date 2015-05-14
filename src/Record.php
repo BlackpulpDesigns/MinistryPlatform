@@ -23,17 +23,11 @@ class Record
    */
   protected $fields;
 
-  /**
-   * The field name (not value) of the current table's Primary Key.
-   * 
-   * @var string
-   */
-  protected $primary_key;
 
   /**
-   * The name of the current table
+   * The associated Table
    * 
-   * @var string
+   * @var Blackpulp\MinistryPlatform\Table
    */
   protected $table;
 
