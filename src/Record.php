@@ -32,13 +32,6 @@ class Record
   protected $table;
 
   /**
-   * An instance of the MinistryPlatform object.
-   * 
-   * @var Blackpulp\Utilities\MinistryPlatform
-   */
-  protected $mp;
-
-  /**
    * The current record ID.
    * 
    * @var integer
@@ -54,7 +47,6 @@ class Record
   
   public function __construct(Table $table, $fields) {
 
-    $this->mp = $table->getMpInstance();
     $this->table = $table;
     $this->fields = $fields;
     $this->setRecordId();
@@ -72,13 +64,13 @@ class Record
     
     if( array_key_exists($this->table->getPrimaryKey(), $this->fields) ) {
 
-      $return = $this->mp->updateRecord($this);
+      $return = $this->table->getMpInstance()->updateRecord($this);
 
     }
 
     else {
 
-      $return = $this->mp->addRecord($this);
+      $return = $this->table->getMpInstance()->addRecord($this);
       $key = $this->table->getPrimaryKey();
       $this->fields[$key] = $return[0];
     }
@@ -133,7 +125,7 @@ class Record
 
   public function getMpInstance() {
 
-    return $this->mp;
+    return $this->table->getMpInstance();
 
   }
 
