@@ -21,25 +21,11 @@ use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
 class MinistryPlatform extends Connection {
 
   /**
-   * Array of Parameters that will be passed to the API Call.
-   * 
-   * @var array
-   */
-  protected $parameters = [];
-
-  /**
    * An instance of the SOAP Client class
    * 
    * @var SoapClient
    */
   protected $client;
-
-  /**
-   * The MinistryPlatform API function name.
-   * 
-   * @var string
-   */
-  protected $function;
 
   /**
    * An array of any errors returned by the API call.
@@ -70,22 +56,6 @@ class MinistryPlatform extends Connection {
   }
 
   /**
-   * 
-   */
-  
-  public function setFunction($function) {
-
-    $this->function = $function;
-
-  }
-
-  public function setParameters(array $parameters) {
-
-    $this->parameters = $parameters;
-
-  }
-
-  /**
    * Execute the API call.
    * 
    * Responsible for sending the MinistryPlatform API call and 
@@ -94,7 +64,7 @@ class MinistryPlatform extends Connection {
    * @return SimpleXMLObject
    */
 
-  protected function execute() { 
+  protected function execute($function, $parameters) { 
     
     try {
 
@@ -109,8 +79,8 @@ class MinistryPlatform extends Connection {
     }
 
     try {
-      $request = $this->client->__soapCall($this->function, [
-        'parameters' => $this->parameters
+      $request = $this->client->__soapCall($function, [
+        'parameters' => $parameters
       ]);
     }
     catch(SoapFault $soap_error) {
@@ -133,15 +103,15 @@ class MinistryPlatform extends Connection {
 
   public function authenticate( $username, $password ) {
     
-    $this->function = 'AuthenticateUser';
+    $function = 'AuthenticateUser';
 
-    $this->parameters = array(
+    $parameters = array(
       'UserName'    => $username,
       'Password'    => $password,
       'ServerName'  => $this->servername
     );
 
-    $response = $this->execute();
+    $response = $this->execute($function, $parameters);
 
     if($response->UserID == 0) {
       throw new MinistryPlatformException("Authentication failed. Please check your username and password.");
@@ -163,16 +133,16 @@ class MinistryPlatform extends Connection {
 
   public function storedProcedure($sp, array $request = []) {
 
-    $this->function = "ExecuteStoredProcedure";
+    $function = "ExecuteStoredProcedure";
 
-    $this->parameters = [
+    $parameters = [
       'GUID' => $this->guid,
       'Password' => $this->pw,
       'StoredProcedureName' => $sp,
       'RequestString' => $this->ConvertToString($request)
     ];
 
-    return new StoredProcedureResult( $this->execute()->ExecuteStoredProcedureResult );
+    return new StoredProcedureResult( $this->execute($function, $parameters)->ExecuteStoredProcedureResult );
   }
 
   /**
@@ -237,7 +207,7 @@ class MinistryPlatform extends Connection {
 
   public function addRecord(Record $record) {
 
-    $this->parameters = array(
+    $parameters = array(
       'GUID'             => $this->guid,
       'Password'         => $this->pw,
       'UserID'           => $this->user_id,
@@ -246,9 +216,9 @@ class MinistryPlatform extends Connection {
       'RequestString'    => $this->ConvertToString($record->getFields())
     );
 
-    $this->function = 'AddRecord';
+    $function = 'AddRecord';
 
-    $response = $this->execute();
+    $response = $this->execute($function, $parameters);
 
     $results = $this->SplitToArray($response->AddRecordResult);
 
@@ -273,7 +243,7 @@ class MinistryPlatform extends Connection {
 
   public function updateRecord(Record $record) {
 
-    $this->parameters = array(
+    $parameters = array(
       'GUID'             => $this->guid,
       'Password'         => $this->pw,
       'UserID'           => $this->user_id,
@@ -282,9 +252,10 @@ class MinistryPlatform extends Connection {
       'RequestString'    => $this->ConvertToString($record->getFields())
     );
 
-    $this->function = 'UpdateRecord';
+    $function = 'UpdateRecord';
 
-    $response = $this->execute();
+    $response = $this->execute($function, $parameters);
+
     $results = $this->SplitToArray($response->UpdateRecordResult);
     if( $results[0] <= 0 ) {
 
@@ -297,7 +268,7 @@ class MinistryPlatform extends Connection {
 
   public function createRecurringSeries(RecurringRecord $recurring_record) {
 
-    $this->parameters = array(
+    $parameters = array(
       'GUID'             => $this->guid,
       'Password'         => $this->pw,
       'UserID'           => $this->user_id,
@@ -323,9 +294,9 @@ class MinistryPlatform extends Connection {
       'Saturday' => $recurring_record->getSaturday()
     );
 
-    $this->function = 'AddRecurringRecords';
+    $function = 'AddRecurringRecords';
 
-    $response = $this->execute();
+    $response = $this->execute($function, $parameters);
 
     $results = $this->SplitToArray($response->AddRecurringRecordsResult);
     if( $results[0] <= 0 ) {
@@ -340,7 +311,7 @@ class MinistryPlatform extends Connection {
 
   public function getFirstDateInSeries(RecurringRecord $recurring_record) {
 
-    $this->parameters = array(
+    $parameters = array(
       'GUID' => $this->guid,
       'Password' => $this->pw,
       'Pattern' => $recurring_record->getPattern(),
@@ -360,9 +331,9 @@ class MinistryPlatform extends Connection {
       'Saturday' => $recurring_record->getSaturday()
     );
 
-    $this->function = 'GetFirstDateInSeries';
+    $function = 'GetFirstDateInSeries';
 
-    $response = $this->execute();
+    $response = $this->execute($function, $parameters);
 
     $results = $response->GetFirstDateInSeriesResult;
     if( $results == 0 ) {
@@ -377,7 +348,7 @@ class MinistryPlatform extends Connection {
 
   public function getRecurringRecords(RecurringRecord $recurring_record) {
 
-    $this->parameters = array(
+    $parameters = array(
       'GUID' => $this->guid,
       'Password' => $this->pw,
       'Pattern' => $recurring_record->getPattern(),
@@ -397,9 +368,9 @@ class MinistryPlatform extends Connection {
       'Saturday' => $recurring_record->getSaturday()
     );
 
-    $this->function = 'GetRecurringRecords';
+    $function = 'GetRecurringRecords';
 
-    return new StoredProcedureResult($this->execute()->GetRecurringRecordsResult);
+    return new StoredProcedureResult($this->execute($function, $parameters)->GetRecurringRecordsResult);
 
   }
 
@@ -411,20 +382,20 @@ class MinistryPlatform extends Connection {
   
   public function getUserInfo() {
 
-    $this->function = "GetUserInfo";
-    $this->parameters = [
+    $function = "GetUserInfo";
+    $parameters = [
       'GUID' => $this->guid,
       'Password' => $this->pw,
       'UserID' => $this->user_id
     ];
 
-    return new StoredProcedureResult($this->execute()->GetUserInfoResult);
+    return new StoredProcedureResult($this->execute($function, $parameters)->GetUserInfoResult);
 
   }
 
   public function attachFile(File $file) {
 
-    $this->parameters = array(
+    $parameters = array(
       'GUID'            => $this->guid,
       'Password'          => $this->pw,
       'FileContents'        => $file->getBinary(),
@@ -436,9 +407,9 @@ class MinistryPlatform extends Connection {
       'ResizeLongestDimension'  => $file->getPixels()
     );
 
-    $this->function = 'AttachFile';
+    $function = 'AttachFile';
 
-    $response = $this->SplitToArray( $this->execute()->AttachFileResult );
+    $response = $this->SplitToArray( $this->execute($function, $parameters)->AttachFileResult );
     
     if( $response[0] == "0" ) {
 
@@ -452,7 +423,7 @@ class MinistryPlatform extends Connection {
   public function updateDefaultImage(File $file)
   {
 
-    $this->parameters = array(
+    $parameters = array(
       'GUID'              => $this->guid,
       'Password'          => $this->pw,
       'UniqueName'        => $file->getGuid(),
@@ -460,9 +431,9 @@ class MinistryPlatform extends Connection {
       'RecordID'          => $file->getRecordId()
     );
 
-    $this->function = 'UpdateDefaultImage';
+    $function = 'UpdateDefaultImage';
 
-    $response = $this->SplitToArray( $this->execute()->UpdateDefaultImageResult );
+    $response = $this->SplitToArray( $this->execute($function, $parameters)->UpdateDefaultImageResult );
 
     if( $response[0] == "0" ) {
 
