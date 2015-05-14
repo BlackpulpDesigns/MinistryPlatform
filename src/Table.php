@@ -47,7 +47,7 @@ class Table
 
   }
 
-  protected function makeRecord($fields) {
+  public function makeRecord($fields) {
 
     return new Record($this, $fields);
 
