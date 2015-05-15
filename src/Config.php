@@ -150,6 +150,13 @@ class Config
     return $this;
   }
 
+  /**
+   * Retrieve the value of a specific configuration Key name
+   * 
+   * @param string $key The name of the Key
+   * 
+   * @return string
+   */
   public function getConfigValue($key) {
 
     $config = $this->config->getTableKeyValuePair(0);

@@ -82,7 +82,14 @@ class User
 
 
 
-  
+  /**
+   * Create the User object
+   * 
+   * @param SimpleXMLElement $user
+   * @param string $username Because it isn't returned in the user object..?
+   *
+   * @return void
+   */
   public function __construct($user, $username) {
 
     $this->id = (int)$user->UserID;
@@ -95,42 +102,77 @@ class User
     $this->getRoles();
   }
 
+  /**
+   * Get the user's User ID
+   * 
+   * @return int
+   */
   public function getId() {
 
     return $this->id;
 
   }
 
+  /**
+   * Get the user's Username
+   * 
+   * @return string
+   */
   public function getUserName() {
 
     return $this->username;
 
   }
 
+  /**
+   * Get the user's Contact ID
+   * 
+   * @return int
+   */
   public function getContactId() {
 
     return $this->contact_id;
 
   }
 
+  /**
+   * Get the user's Display Name
+   * 
+   * @return string
+   */
   public function getDisplayName() {
 
     return $this->display_name;
 
   }
 
+  /**
+   * Get the user's E-mail Address
+   * 
+   * @return string
+   */
   public function getEmail() {
 
     return $this->email;
 
   }
 
+  /**
+   * Get whether the user can impersonate other Platform users
+   * 
+   * @return boolean
+   */
   public function getImpersonate() {
 
     return $this->impersonate;
 
   }
 
+  /**
+   * Get the user's Security Roles
+   * 
+   * @return array
+   */
   public function getRoles() {
 
     if( empty( $this->roles ) ) {
@@ -143,6 +185,14 @@ class User
 
   }
 
+  /**
+   * Get contact and user info about the user.
+   *
+   * Also returns lookup tables for Genders, Marital Statuses, Prefixes,
+   * and Suffixes.
+   * 
+   * @return StoredProcedureResult
+   */
   public function getInfo() {
 
     if( gettype($this->info ) !== "StoredProcedureResult" ) {
@@ -155,6 +205,11 @@ class User
 
   }
 
+  /**
+   * Setter for the user info
+   *
+   * @return self
+   */
   protected function setInfo() {
 
     $mp = new MinistryPlatform($this->id);
@@ -185,7 +240,11 @@ class User
 
   }
 
-
+  /**
+   * Sets security roles
+   * 
+   * @return self
+   */
   protected function setSecurityRoles() {
 
     $mp = new MinistryPlatform($this->id);
