@@ -27,13 +27,6 @@ class Config
    * @var string
    */
   protected $stored_procedure;
-  
-  /**
-   * The array of configuration settings
-   * 
-   * @var array
-   */
-  protected $config = [];
 
   /**
    * The Application Code name that needs to be fetched from MinistryPlatform.
@@ -41,6 +34,13 @@ class Config
    * @var string
    */
   protected $application_code;
+  
+  /**
+   * The array of configuration settings
+   * 
+   * @var array
+   */
+  protected $config = [];
 
 
   /**
@@ -149,4 +149,11 @@ class Config
 
     return $this;
   }
+
+  public function getConfigValue($key) {
+
+    return $this->config[$key];
+
+  }
+  
 }
