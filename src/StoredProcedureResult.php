@@ -88,6 +88,10 @@ class StoredProcedureResult
 
   /**
    * Retrieve a single table.
+   *
+   * @param int $key
+   *
+   * @return array
    */
   public function getTable($key = 0) {
 
