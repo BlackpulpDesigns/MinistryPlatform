@@ -65,6 +65,13 @@ class User
    * @var bool
    */
   protected $impersonate;
+
+  /**
+   * An object that contains helpful information about the user.
+   * 
+   * @var StoredProcedureResult
+   */
+  protected $info;
   
   /**
    * All security roles for the authenticated user
@@ -138,10 +145,43 @@ class User
 
   public function getInfo() {
 
-    $mp = new MinistryPlatform($this->id);
-    $info = $mp->getUserInfo();
+    if( gettype($this->info ) !== "StoredProcedureResult" ) {
 
-    return $info;
+      $this->setInfo();
+
+    }
+
+    return $this->info;
+
+  }
+
+  protected function setInfo() {
+
+    $mp = new MinistryPlatform($this->id);
+    $this->info = $mp->getUserInfo();
+
+    return $this;
+
+  }
+
+  /**
+   * Takes getInfo() and turns lookup arrays into Key-Value pairs.
+   * 
+   * @return array
+   */
+  public function getFormattedTableData() {
+
+    $info = $this->getInfo();
+
+    $return = [];
+
+    foreach($info->getTables() as $key=>$table) {
+
+      $return[$key] = $info->getTableKeyValuePair($key);
+
+    }
+
+    return $return;
 
   }
 
@@ -149,10 +189,7 @@ class User
   protected function setSecurityRoles() {
 
     $mp = new MinistryPlatform($this->id);
-    $result = $mp->storedProcedure("api_Common_GetUserRoles", ["UserID" => $this->id])->getTables();
-    $roles = [];
-
-    $this->roles = $result;
+    $this->roles = $mp->storedProcedure("api_Common_GetUserRoles", ["UserID" => $this->id])->getTableKeyValuePair(0);
 
     return $this;
 

@@ -96,6 +96,49 @@ class StoredProcedureResult
   }
 
   /**
+   * Associative array of values from a Stored Procedure Table.
+   *
+   * When a stored procedure table returns an array of arrays, this can be helpful
+   * in retrieving only the first two fields of data as a key value pair. 
+   * 
+   * For example, an array that contains a Prefix_ID and Prefix_Name would
+   * ideally provide an a value of $prefixes[Prefix_ID] => Prefix_Name. 
+   * This is precisely what this method will do. Please note that it
+   * will ignore and discard any additional fields that may be in
+   * the array.
+   *
+   * @param integer $key The array key of the requested stored procedure table.
+   *
+   * @return array A $key->$value array.
+   */
+
+  public function getTableKeyValuePair($key) {
+
+    $table = $this->tables[$key];
+    $fields = [];
+
+    foreach($table as $key=>$field) {
+
+      if( is_array($field) ) {
+
+        $keys = array_keys($field);
+
+        $fields[ $field[ $keys[0] ] ] = $field[ $keys[1] ];
+
+      }
+      else {
+
+        $fields[$key] = $field;
+
+      }
+
+    }
+
+    return $fields;
+
+  }
+
+  /**
    * Get the Raw response object.
    *
    * @return SimpleXMLElement
