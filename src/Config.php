@@ -1,7 +1,7 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
 use StoredProcedureResult;
-use MinistryPlatform;
+use Blackpulp\MinistryPlatform\MinistryPlatform;
 
 /**
  * MinistryPlatform Config
