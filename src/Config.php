@@ -152,7 +152,9 @@ class Config
 
   public function getConfigValue($key) {
 
-    return $this->config[$key];
+    $config = $this->config->getTableKeyValuePair(0);
+
+    return $config[$key];
 
   }
 
