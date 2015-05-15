@@ -175,8 +175,9 @@ class StoredProcedureResult
 
       foreach($contents as $field=>$record) {
 
-        $records[$field] = $this->processLookupValues( $this->processXMLElement($record) );
-
+        $item = $this->processXMLElement($record);
+        $key = reset($item);
+        $records[$key] = $this->processLookupValues( $item );
       }
 
     }

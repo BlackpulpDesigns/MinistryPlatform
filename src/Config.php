@@ -68,10 +68,12 @@ class Config
 
     $mp = new MinistryPlatform();
 
-    $this->config = $mp->storedProcedure(
+    $config = $mp->storedProcedure(
                           $this->stored_procedure, 
                           ['ApplicationCode' => $this->application_code]
-                        )->getTable(0);
+                        );
+
+    $this->config = $config->getTable(0);
 
     return $this;
   }
