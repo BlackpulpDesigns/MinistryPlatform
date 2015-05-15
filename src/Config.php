@@ -36,11 +36,11 @@ class Config
   protected $application_code;
   
   /**
-   * The array of configuration settings
+   * The stored procedure result of configuration settings
    * 
-   * @var array
+   * @var StoredProcedureResult
    */
-  protected $config = [];
+  protected $config;
 
 
   /**
@@ -73,7 +73,7 @@ class Config
                           ['ApplicationCode' => $this->application_code]
                         );
 
-    $this->config = $config->getTable(0);
+    $this->config = $config;
 
     return $this;
   }
@@ -103,7 +103,7 @@ class Config
   }
 
   /**
-   * Gets the The array of configuration settings.
+   * Gets the configuration settings result object.
    *
    * @return array
    */
@@ -115,11 +115,11 @@ class Config
   /**
    * Sets the The array of configuration settings.
    *
-   * @param array $config the config
+   * @param StoredProcedureResult $config The config object
    *
    * @return self
    */
-  protected function setConfig(array $config)
+  protected function setConfig(StoredProcedureResult $config)
   {
     $this->config = $config;
 
@@ -155,5 +155,5 @@ class Config
     return $this->config[$key];
 
   }
-  
+
 }
