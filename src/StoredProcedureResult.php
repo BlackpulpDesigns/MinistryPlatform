@@ -173,11 +173,10 @@ class StoredProcedureResult
     }
     else {
 
-      foreach($contents as $field=>$record) {
+      foreach($contents as $record) {
 
-        $item = $this->processXMLElement($record);
-        $key = reset($item);
-        $records[$key] = $this->processLookupValues( $item );
+        $records[] = $this->processXMLElement($record);
+
       }
 
     }
@@ -220,32 +219,6 @@ class StoredProcedureResult
     }
 
     return $records;
-
-  }
-
-  /**
-   * A helper method to process small tables of data quickly.
-   * 
-   * @param  array $lookup
-   * @return array
-   */
-  protected function processLookupValues($lookup) {
-
-    $keys = array_keys($lookup);
-
-    if(count($keys) >= 2) {
-
-      $new_key = $keys[0];
-      $new_value_key = $keys[1];
-
-    }
-    else {
-
-      $new_value_key = $keys[0];
-
-    }
-
-    return $lookup[$new_value_key] ;
 
   }
 
