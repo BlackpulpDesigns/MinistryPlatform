@@ -123,7 +123,16 @@ class StoredProcedureResult
 
         $keys = array_keys($field);
 
-        $fields[ $field[ $keys[0] ] ] = $field[ $keys[1] ];
+        if( count($keys) > 1 ) {
+
+          $fields[ $field[ $keys[0] ] ] = $field[ $keys[1] ];
+
+        }
+        else {
+
+          $fields[] = $field[ $keys[0] ];
+
+        }
 
       }
       else {
