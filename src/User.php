@@ -227,7 +227,7 @@ class User
    */
   public function getInfo() {
 
-    if( gettype($this->info ) !== "StoredProcedureResult" ) {
+    if( get_class($this->info ) !== "Blackpulp\MinistryPlatform\StoredProcedureResult" ) {
 
       $this->setInfo();
 
