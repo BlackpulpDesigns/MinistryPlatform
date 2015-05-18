@@ -1,4 +1,4 @@
-<?php namespace Blackpulp\MinistryPlatform\CoreTool\;
+<?php namespace Blackpulp\MinistryPlatform\CoreTool;
 
 use Blackpulp\MinistryPlatform\MinistryPlatformException;
 use Blackpulp\MinistryPlatform\MinistryPlatform;
@@ -53,7 +53,7 @@ class Base {
     $this->user = new User($this->user_guid);
 
     $this->mp = new MinistryPlatform( $this->user->getId() );
-    
+
   }
   
   /**
