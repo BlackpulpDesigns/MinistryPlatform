@@ -43,9 +43,9 @@ class Base {
     $this->selection_count = $_GET['sc'];
     $this->selection = $this->setSelection();
     $this->pagination = $_GET['p'];
-    $this->sort_order = $_GET['o'] ? $_GET['o'] : "";
-    $this->query_string = $_GET['q'] ? $_GET['q'] : "";
-    $this->view_id = $_GET['v'] ? $_GET['v'] : 0;
+    $this->sort_order = !empty($_GET['o']) ? $_GET['o'] : "";
+    $this->query_string = !empty($_GET['q']) ? $_GET['q'] : "";
+    $this->view_id = !empty($_GET['v']) ? $_GET['v'] : 0;
     
     $this->user = new User( $this->user_guid );
 
