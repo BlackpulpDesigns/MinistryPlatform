@@ -85,21 +85,39 @@ class User
   /**
    * Create the User object
    * 
-   * @param SimpleXMLElement $user
-   * @param string $username Because it isn't returned in the user object..?
+   * @param string $guid the User_GUID
    *
    * @return void
    */
-  public function __construct($user, $username) {
 
-    $this->id = (int)$user->UserID;
-    $this->username = $username;
-    $this->display_name = (string)$user->DisplayName;
-    $this->contact_id = (int)$user->ContactID;
-    $this->user_guid = (string)$user->UserGUID;
-    $this->email = (string)$user->ContactEmail;
-    $this->impersonate = (bool)$user->CanImpersonate;
+  public function __construct(string $guid) {
+
+    $this->user_guid = $guid;
+
+    $this->getUserInfoFromGuid();
+
+    $contact_data = $this->info->getTable(0);
+
+    $this->id = $contact_data['User_Account'];
+    $this->username = $contact_data['User_Name'];
+    $this->display_name = $contact_data['Display_Name'];
+    $this->contact_id = $contact_data['Contact_ID'];
+    $this->email = $contact_data['Email_Address'];
+    $this->impersonate = $contact_data['Can_Impersonate'];
+
     $this->getRoles();
+  }
+
+  public function setUserInfoFromGuid() {
+
+    $mp = new MinistryPlatform($this->id);
+    
+    $this->info = $mp->storedProcedure("api_blackpulp_getUserInfoByGuid", [
+      "GUID" => $this->user_guid
+    ]);
+
+    return $this;
+
   }
 
   /**
@@ -186,6 +204,20 @@ class User
   }
 
   /**
+   * Sets security roles
+   * 
+   * @return self
+   */
+  protected function setSecurityRoles() {
+
+    $mp = new MinistryPlatform($this->id);
+    $this->roles = $mp->storedProcedure("api_Common_GetUserRoles", ["UserID" => $this->id])->getTableKeyValuePair(0);
+
+    return $this;
+
+  }
+
+  /**
    * Get contact and user info about the user.
    *
    * Also returns lookup tables for Genders, Marital Statuses, Prefixes,
@@ -237,20 +269,6 @@ class User
     }
 
     return $return;
-
-  }
-
-  /**
-   * Sets security roles
-   * 
-   * @return self
-   */
-  protected function setSecurityRoles() {
-
-    $mp = new MinistryPlatform($this->id);
-    $this->roles = $mp->storedProcedure("api_Common_GetUserRoles", ["UserID" => $this->id])->getTableKeyValuePair(0);
-
-    return $this;
 
   }
 

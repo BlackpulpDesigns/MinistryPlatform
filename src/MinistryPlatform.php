@@ -127,7 +127,7 @@ class MinistryPlatform extends Connection {
 
     $this->user_id = (int)$response->UserID;
 
-    return new User($response, $username);
+    return new User( (string)$user->UserGUID );
   }
 
   /**
