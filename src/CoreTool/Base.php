@@ -6,18 +6,94 @@ use Blackpulp\MinistryPlatform\User;
 
 class Base {
   
-  protected $domain; // string/GUID
-  protected $user_guid; // string/GUID
+  /**
+   * Church's domain GUID
+   * 
+   * @var string
+   */
+  protected $domain;
+  
+  /**
+   * Current user's User_GUID
+   * 
+   * @var string
+   */
+  protected $user_guid;
+
+  /**
+   * User object for the current user.
+   * 
+   * @var Blackpulp\MinistryPlatform\User
+   */
   protected $user;
-  protected $page_id; // integer
-  protected $record_id; // integer
-  protected $record_description; // string
+
+  /**
+   * ID of the current page.
+   * 
+   * @var integer
+   */
+  protected $page_id;
+
+  /**
+   * Record ID.
+   * 
+   * If the tool is launched from an open record, this will be that record's ID. 
+   * If launched from the grid, this value will always be -1.
+   * 
+   * @var integer
+   */
+  protected $record_id;
+
+  /**
+   * Brief description of the current record.
+   * 
+   * @var string
+   */
+  protected $record_description;
+
+  /**
+   * ID of the active selection.
+   * 
+   * @var int
+   */
   protected $selection_id; // integer
-  protected $selection_count; // integer
-  protected $pagination; // integer, index starts at 0
-  protected $sort_order; // string
-  protected $query_string; // string
-  protected $view_id; // integer
+
+  /**
+   * Number of records present in the active selection.
+   * 
+   * @var int
+   */
+  protected $selection_count;
+
+  /**
+   * The current page of the grid view.
+   *
+   * This may be deprecated since MP 2.0 uses lazy loading and 
+   * doesn't offer a paginated grid view.
+   * 
+   * @var int
+   */
+  protected $pagination;
+
+  /**
+   * Stores the sort order, if any
+   * @var string
+   */
+  protected $sort_order;
+
+  /**
+   * Stores the grid's query string, if any
+   * 
+   * @var string
+   */
+  protected $query_string;
+
+  /**
+   * Store's the active view_id, if any
+   * 
+   * @var int
+   */
+  protected $view_id;
 
   /**
    * Array of the user's current selection
@@ -52,6 +128,19 @@ class Base {
     $this->mp = new MinistryPlatform( $this->user->getId() );
 
   }
+
+
+  /**
+   * Gets the Array of the user's current selection.
+   *
+   * @return array
+   */
+  public function getSelection()
+  {
+      
+    return $this->selection;
+
+  }
   
   /**
    * @Description
@@ -75,5 +164,122 @@ class Base {
 
     return $this;
   }
-  
+
+  /**
+   * Gets the User object for the current user.
+   *
+   * @return Blackpulp\MinistryPlatform\User
+   */
+  public function getUser()
+  {
+    return $this->user;
+  }
+
+  /**
+   * Sets the User object for the current user.
+   *
+   * @param Blackpulp\MinistryPlatform\User $user the user
+   *
+   * @return self
+   */
+  public function setUser(Blackpulp\MinistryPlatform\User $user)
+  {
+    $this->user = $user;
+
+    return $this;
+  }
+
+  /**
+   * Gets the ID of the current page.
+   *
+   * @return integer
+   */
+  public function getPageId()
+  {
+    return $this->page_id;
+  }
+
+  /**
+   * Gets the Record ID
+   * If the tool is launched from an open record, this will be that record's ID
+   * If launched from the grid, this value will always be -1.
+   *
+   * @return integer
+   */
+  public function getRecordId()
+  {
+    return $this->record_id;
+  }
+
+  /**
+   * Gets the Brief description of the current record.
+   *
+   * @return string
+   */
+  public function getRecordDescription()
+  {
+    return $this->record_description;
+  }
+
+  /**
+   * Gets the ID of the active selection.
+   *
+   * @return int
+   */
+  public function getSelectionId()
+  {
+    return $this->selection_id;
+  }
+
+  /**
+   * Gets the Number of records present in the active selection.
+   *
+   * @return int
+   */
+  public function getSelectionCount()
+  {
+    return $this->selection_count;
+  }
+
+  /**
+   * Gets the The current page of the grid view
+   * This may be deprecated since MP 2.0 uses lazy loading and
+   * doesn't offer a paginated grid view.
+   *
+   * @return int
+   */
+  public function getPagination()
+  {
+    return $this->pagination;
+  }
+
+  /**
+   * Gets the Stores the sort order, if any.
+   *
+   * @return string
+   */
+  public function getSortOrder()
+  {
+    return $this->sort_order;
+  }
+
+  /**
+   * Gets the Stores the grid's query string, if any.
+   *
+   * @return string
+   */
+  public function getQueryString()
+  {
+    return $this->query_string;
+  }
+
+  /**
+   * Gets the Store's the active view_id, if any.
+   *
+   * @return int
+   */
+  public function getViewId()
+  {
+    return $this->view_id;
+  }
 }
