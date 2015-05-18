@@ -34,21 +34,18 @@ class Base {
   public function __construct()
   {
 
-    $this->domain = isset($_GET['dg']) ? $_GET['dg'] : throw new Exception("Missing Required Parameter: Domain GUID.");
-    $this->user_guid = isset($_GET['ug']) ? $_GET['ug'] : throw new Exception("Missing Required Parameter: User GUID.");
-    $this->page_id = isset($_GET['pageID']) ? $_GET['pageID'] : throw new Exception("Missing Required Parameter: Page ID.");
-    $this->record_id = isset($_GET['recordID']) ? $_GET['recordID'] : throw new Exception("Missing Required Parameter: Record ID.");
-    $this->record_description = isset($_GET['recordDescription']) ? 
-                                  $_GET['recordDescription'] : 
-                                  throw new Exception("Missing Required Parameter: Record Description.");
-
-    $this->selection_id = isset($_GET['s']) ? $_GET['s'] : throw new Exception("Missing Required Parameter: Selection ID.");
-    $this->selection_count = isset($_GET['sc']) ? $_GET['sc'] : throw new Exception("Missing Required Parameter: Selection Count.");
-    $this->selection = $this->getSelection();
-    $this->pagination = isset($_GET['p']) ? $_GET['p'] : throw new Exception("Missing Required Parameter: Pagination.");
-    $this->sort_order = isset($_GET['o']) ? $_GET['o'] : throw new Exception("Missing Required Parameter: Sort Order.");
-    $this->query_string = isset($_GET['q']) ? $_GET['q'] : throw new Exception("Missing Required Parameter: Query String.");
-    $this->view_id = isset($_GET['v']) ? $_GET['v'] : throw new Exception("Missing Required Parameter: View ID.");
+    $this->domain = $_GET['dg'];
+    $this->user_guid = $_GET['ug'];
+    $this->page_id = $_GET['pageID'];
+    $this->record_id = $_GET['recordID'];
+    $this->record_description = $_GET['recordDescription'];
+    $this->selection_id = $_GET['s'];
+    $this->selection_count = $_GET['sc'];
+    $this->selection = $this->setSelection();
+    $this->pagination = $_GET['p'];
+    $this->sort_order = $_GET['o'];
+    $this->query_string = $_GET['q'];
+    $this->view_id = $_GET['v'];
     
     $this->user = new User($this->user_guid);
 
