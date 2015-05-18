@@ -94,7 +94,7 @@ class User
 
     $this->user_guid = $guid;
 
-    $this->getUserInfoFromGuid();
+    $this->setUserInfoFromGuid();
 
     $contact_data = $this->info->getTable(0);
 
