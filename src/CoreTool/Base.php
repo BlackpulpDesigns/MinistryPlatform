@@ -43,11 +43,11 @@ class Base {
     $this->selection_count = $_GET['sc'];
     $this->selection = $this->setSelection();
     $this->pagination = $_GET['p'];
-    $this->sort_order = $_GET['o'];
-    $this->query_string = $_GET['q'];
-    $this->view_id = $_GET['v'];
+    $this->sort_order = $_GET['o'] ? $_GET['o'] : "";
+    $this->query_string = $_GET['q'] ? $_GET['q'] : "";
+    $this->view_id = $_GET['v'] ? $_GET['v'] : 0;
     
-    $this->user = new User($this->user_guid);
+    $this->user = new User( $this->user_guid );
 
     $this->mp = new MinistryPlatform( $this->user->getId() );
 

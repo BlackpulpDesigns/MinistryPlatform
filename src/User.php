@@ -90,7 +90,7 @@ class User
    * @return void
    */
 
-  public function __construct(string $guid) {
+  public function __construct( $guid ) {
 
     $this->user_guid = $guid;
 
