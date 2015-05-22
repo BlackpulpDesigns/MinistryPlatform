@@ -272,6 +272,11 @@ class StoredProcedureResult
         $value = (float)$record;
       }
 
+      // handle booleans
+      if(is_bool($record) ) {
+        $value = (bool)$record;
+      }
+
       // handle SimpleXMLElement values
       if( is_object($record) && get_class($record) == "SimpleXMLElement" ) {
         $value = $this->processXMLElement($record);

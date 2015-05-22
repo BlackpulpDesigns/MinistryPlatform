@@ -258,8 +258,13 @@ class User
     $return = [];
 
     foreach($info->getTables() as $key=>$table) {
-
-      $return[$key] = $info->getTableKeyValuePair($key);
+      $first_element = reset($table);
+      if( is_array($first_element) ) {
+        $return[$key] = $info->getTableKeyValuePair($key);
+      }
+      else {
+        $return[$key] = $table;
+      }
 
     }
 
