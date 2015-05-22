@@ -90,20 +90,15 @@ class User
    * @return void
    */
 
-  public function __construct( $guid ) {
+  public function __construct( $user, $username="", $user_guid="") {
 
-    $this->user_guid = $guid;
-
-    $this->setUserInfoFromGuid();
-
-    $contact_data = $this->info->getTable(0);
-
-    $this->id = $contact_data['User_Account'];
-    $this->username = $contact_data['User_Name'];
-    $this->display_name = $contact_data['Display_Name'];
-    $this->contact_id = $contact_data['Contact_ID'];
-    $this->email = $contact_data['Email_Address'];
-    $this->impersonate = $contact_data['Can_Impersonate'];
+    $this->id = (int)$user->UserID;
+    $this->username = isset($user->UserName) ? (string)$user->UserName : $username;
+    $this->display_name = (string)$user->DisplayName;
+    $this->contact_id = (int)$user->ContactID;
+    $this->user_guid = isset($user->UserGUID) ? (string)$user->UserGUID : $user_guid;
+    $this->email = (string)$user->ContactEmail;
+    $this->impersonate = (bool)$user->CanImpersonate;
 
     $this->getRoles();
   }

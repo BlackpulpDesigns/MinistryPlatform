@@ -123,10 +123,8 @@ class Base {
     $this->query_string = !empty($_GET['q']) ? $_GET['q'] : "";
     $this->view_id = !empty($_GET['v']) ? $_GET['v'] : 0;
     
-    $this->user = new User( $this->user_guid );
-
-    $this->mp = new MinistryPlatform( $this->user->getId() );
-
+    $this->mp = new MinistryPlatform();
+    $this->user = $this->mp->authenticateGuid($this->user_guid);
   }
 
 

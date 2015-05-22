@@ -118,6 +118,13 @@ class StoredProcedureResult
 
   public function getTableKeyValuePair($key) {
 
+    if( !isset( $this->tables[$key] ) ) {
+
+      return [];
+      // throw new MinistryPlatformException("The requested table does not exist. Use getTables() to view all available tables.");
+
+    }
+
     $table = $this->tables[$key];
     $fields = [];
 
