@@ -130,6 +130,26 @@ class MinistryPlatform extends Connection {
     return new User( (string)$user->UserGUID );
   }
 
+  public function authenticateGuid($guid) {
+
+    $function = "AuthenticateGUIDS";
+
+    $parameters = array(
+      "UserGUID" => $guid,
+      "DomainGUID" => $this->guid
+    );
+
+    $response = $this->execute($function, $parameters);
+
+    if($response->UserID == 0) {
+      throw new MinistryPlatformException("Authentication failed. Please check your username and password.");
+    }
+
+    $this->user_id = (int)$response->UserID;
+
+    return new User( $response );
+  }
+
   /**
    * Execute a stored procedure.
    *
