@@ -212,6 +212,11 @@ class Record
       $this->record_id = $this->fields[$this->table->getPrimaryKey()];
 
     }
+    else {
+
+      $this->record_id = 0;
+      
+    }
 
     return $this;
 
