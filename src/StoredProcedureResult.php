@@ -95,7 +95,12 @@ class StoredProcedureResult
    */
   public function getTable($key = 0) {
 
-    return $this->tables[$key];
+    if( isset($this->tables[$key]) ) {
+      return $this->tables[$key];  
+    }
+    else {
+      throw new MinistryPlatformException("The requested table does not exist.");
+    }
 
   }
 
