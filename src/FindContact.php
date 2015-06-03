@@ -106,7 +106,17 @@ class FindContact
       "DOB" => isset($this->dob) ? $mp->formatSoapDateTime($this->dob) : NULL,
     ]);
 
-    $this->number_of_matches = count( $this->matches->getTable(0) );
+    // $this->number_of_matches = count( $this->matches->getTable(0) );
+    
+    foreach($this->matches->getTable(0) as $item) {
+      if( is_array($item) ) {
+        $this->number_of_matches = count( $this->matches->getTable(0) );
+      }
+      else {
+        $this->number_of_matches = 1;
+      }
+      break;
+    }
 
     return $this;
 
