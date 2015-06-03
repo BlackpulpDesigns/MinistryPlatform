@@ -215,7 +215,7 @@ class Record
     else {
 
       $this->record_id = 0;
-      
+
     }
 
     return $this;

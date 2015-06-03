@@ -103,7 +103,7 @@ class FindContact
       "LastName" => $this->last_name,
       "EmailAddress" => $this->email,
       "Phone" => $this->phone,
-      "DOB" => isset($this->dob) ? $mp->formatSoapDateTime($this->dob) : NULL;
+      "DOB" => isset($this->dob) ? $mp->formatSoapDateTime($this->dob) : NULL,
     ]);
 
     $this->number_of_matches = count( $this->matches->getTable(0) );
