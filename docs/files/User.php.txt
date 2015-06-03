@@ -85,25 +85,24 @@ class User
   /**
    * Create the User object
    * 
-   * @param string $guid the User_GUID
+   * @param \SimpleXMLElement $user Response from MP Authenticate method
+   * @param string $username If the MP AuthenticateUser() API call was 
+   * used, the username must be supplied.
+   * @param string $user_guid If the MP AuthenticateGUIDs() API call was 
+   * used, the guid must be supplied instead.
    *
    * @return void
    */
 
-  public function __construct( $guid ) {
+  public function __construct( $user, $username="", $user_guid="") {
 
-    $this->user_guid = $guid;
-
-    $this->setUserInfoFromGuid();
-
-    $contact_data = $this->info->getTable(0);
-
-    $this->id = $contact_data['User_Account'];
-    $this->username = $contact_data['User_Name'];
-    $this->display_name = $contact_data['Display_Name'];
-    $this->contact_id = $contact_data['Contact_ID'];
-    $this->email = $contact_data['Email_Address'];
-    $this->impersonate = $contact_data['Can_Impersonate'];
+    $this->id = (int)$user->UserID;
+    $this->username = isset($user->UserName) ? (string)$user->UserName : $username;
+    $this->display_name = (string)$user->DisplayName;
+    $this->contact_id = (int)$user->ContactID;
+    $this->user_guid = isset($user->UserGUID) ? (string)$user->UserGUID : $user_guid;
+    $this->email = (string)$user->ContactEmail;
+    $this->impersonate = (bool)$user->CanImpersonate;
 
     $this->getRoles();
   }
@@ -263,8 +262,13 @@ class User
     $return = [];
 
     foreach($info->getTables() as $key=>$table) {
-
-      $return[$key] = $info->getTableKeyValuePair($key);
+      $first_element = reset($table);
+      if( is_array($first_element) ) {
+        $return[$key] = $info->getTableKeyValuePair($key);
+      }
+      else {
+        $return[$key] = $table;
+      }
 
     }
 

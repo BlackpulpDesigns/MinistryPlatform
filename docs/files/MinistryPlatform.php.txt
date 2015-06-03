@@ -127,7 +127,27 @@ class MinistryPlatform extends Connection {
 
     $this->user_id = (int)$response->UserID;
 
-    return new User( (string)$user->UserGUID );
+    return new User( $response, $username );
+  }
+
+  public function authenticateGuid($guid) {
+
+    $function = "AuthenticateGUIDS";
+
+    $parameters = array(
+      "UserGUID" => $guid,
+      "DomainGUID" => $this->guid
+    );
+
+    $response = $this->execute($function, $parameters);
+
+    if($response->UserID == 0) {
+      throw new MinistryPlatformException("Authentication failed. Please check the supplied unique identifier.");
+    }
+
+    $this->user_id = (int)$response->UserID;
+
+    return new User( $response, "", $guid );
   }
 
   /**
