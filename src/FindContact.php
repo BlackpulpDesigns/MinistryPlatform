@@ -53,7 +53,7 @@ class FindContact
   /**
    * Results from the FindMatchingContact stored procedure
    * 
-   * @var Blackpulp/MinistryPlatform/StoredProcedureResult
+   * @var StoredProcedureResult
    */
   protected $matches;
 
@@ -85,7 +85,7 @@ class FindContact
   /**
    * Returns the FindContact matches
    * 
-   * @return Blackpulp\MinistryPlatform\StoredProcedureResult
+   * @return StoredProcedureResult
    */
   public function getMatches() {
 

@@ -90,7 +90,7 @@ class File
    * @param  boolean $is_image    Simple boolean to determine whether the file is an image.
    * @param  integer $pixels      Number of pixels to resize the longest side of an image.
    *   Use 0 to retain the original dimensions.
-   * @param Blackpulp\MinistryPlatform\MinistryPlatform $mp
+   * @param MinistryPlatform $mp
    */
   public function __construct(
     $file_name,

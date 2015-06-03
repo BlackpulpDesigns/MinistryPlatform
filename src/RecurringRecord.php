@@ -18,7 +18,7 @@ class RecurringRecord
   
   /**
    * The base Record object
-   * @var Blackpulp\MinistryPlatform\Record
+   * @var Record
    */
   protected $record;
 
@@ -255,7 +255,7 @@ class RecurringRecord
 
   /**
    * Gets the current Record object
-   * @return Blackpulp\MinistryPlatform\Record
+   * @return Record
    */
   public function getRecord() {
 
