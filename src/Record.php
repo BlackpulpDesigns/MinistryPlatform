@@ -27,7 +27,7 @@ class Record
   /**
    * The associated Table
    * 
-   * @var Blackpulp\MinistryPlatform\Table
+   * @var Table
    */
   protected $table;
 
@@ -189,7 +189,7 @@ class Record
   /**
    * Retrieve the current MinistryPlatform instance
    * 
-   * @return Blackpulp\MinistryPlatform\MinistryPlatform
+   * @return MinistryPlatform
    */
   public function getMpInstance() {
 
@@ -225,7 +225,7 @@ class Record
   /**
    * Create a RecurringRecord object from the current record.
    * 
-   * @return Blackpulp\MinistryPlatform\RecurringRecord
+   * @return RecurringRecord
    */
   public function makeRecurring() {
 
