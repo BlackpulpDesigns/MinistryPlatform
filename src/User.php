@@ -85,7 +85,11 @@ class User
   /**
    * Create the User object
    * 
-   * @param string $guid the User_GUID
+   * @param \SimpleXMLElement $user Response from MP Authenticate method
+   * @param string $username If the MP AuthenticateUser() API call was 
+   * used, the username must be supplied.
+   * @param string $user_guid If the MP AuthenticateGUIDs() API call was 
+   * used, the guid must be supplied instead.
    *
    * @return void
    */

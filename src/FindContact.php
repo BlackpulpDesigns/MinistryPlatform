@@ -82,6 +82,11 @@ class FindContact
     $this->dob = $dob;
   }
 
+  /**
+   * Returns the FindContact matches
+   * 
+   * @return Blackpulp\MinistryPlatform\StoredProcedureResult
+   */
   public function getMatches() {
 
     if( !isset($this->matches) ) {
@@ -94,17 +99,35 @@ class FindContact
 
   }
 
-  protected function setMatches() {
+  /**
+   * Sets the $matches and $number_of_matches properties
+   * 
+   * Executes the FindMatchingContact stored procedure via MinistryPlatform.
+   * Also allows users to override the default stored procedure and the
+   * parameters passed to the stored procedure.
+   *
+   * @param string $sp The name of the "Find Matching Contacts" Stored Procedure
+   *
+   * @return $this
+   */
+  protected function setMatches($sp = "api_blackpulp_FindMatchingContact", $user_fields=[]) {
 
     $mp = new MinistryPlatform;
+
+    if( count($user_fields) > 0 ) {
+      $matching_fields = $user_fields;
+    }
+    else {
+      $matching_fields = [
+        "FirstName" => $this->first_name,
+        "LastName" => $this->last_name,
+        "EmailAddress" => $this->email,
+        "Phone" => $this->phone,
+        "DOB" => isset($this->dob) ? $mp->formatSoapDateTime($this->dob) : NULL,
+      ];
+    }
     
-    $this->matches = $mp->storedProcedure("api_blackpulp_FindMatchingContact", [
-      "FirstName" => $this->first_name,
-      "LastName" => $this->last_name,
-      "EmailAddress" => $this->email,
-      "Phone" => $this->phone,
-      "DOB" => isset($this->dob) ? $mp->formatSoapDateTime($this->dob) : NULL,
-    ]);
+    $this->matches = $mp->storedProcedure($sp, $matching_fields);
 
     if($this->matches->getTableCount() > 0) {
 
@@ -138,6 +161,15 @@ class FindContact
     return $this->number_of_matches;
   }
 
+  /**
+   * Authenticate a uniquely matched user.
+   *
+   * As long as there is exactly one match *and* that match
+   * has a valid User Account, go ahead and process 
+   * authentication for them.
+   * 
+   * @return MinistryPlatform\Blackpulp\User
+   */
   public function getUserAndAuthenticate() {
 
     if($this->getNumberOfMatches() === 1) {

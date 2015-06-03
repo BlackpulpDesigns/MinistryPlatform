@@ -141,7 +141,6 @@ class Base {
   }
   
   /**
-   * @Description
    * Retrieves the current selection - if one exists
    */
   
