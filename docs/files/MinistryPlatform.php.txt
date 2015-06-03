@@ -106,7 +106,7 @@ class MinistryPlatform extends Connection {
    * @param string $user This is the MP username.
    * @param string $password This is the non-hashed password value.
    * 
-   * @return Blackpulp\MinistryPlatform\User
+   * @return User
    */
 
   public function authenticate( $username, $password ) {
@@ -156,7 +156,7 @@ class MinistryPlatform extends Connection {
    * @param string $sp The name of the stored procedure.
    * @param array $request An array of Stored Procedure parameters
    *
-   * @return Blackpulp\MinistryPlatform\StoredProcedureResult
+   * @return StoredProcedureResult
    */
 
   public function storedProcedure($sp, array $request = []) {
@@ -180,7 +180,7 @@ class MinistryPlatform extends Connection {
    * @param string $primary_key The field name of the specified table's primary key.
    * @param array $fields An array of field names and their values
    *
-   * @return Blackpulp\MinistryPlatform\Record
+   * @return Record
    */
 
   public function makeRecord($table, $primary_key, $fields) {
@@ -195,7 +195,7 @@ class MinistryPlatform extends Connection {
    * @param string $name The name of the database table
    * @param string $primary_key The field name of the specified table's primary key.
    *
-   * @return Blackpulp\MinistryPlatform\Table
+   * @return Table
    */
 
   public function makeTable($name, $primary_key) {
@@ -215,7 +215,7 @@ class MinistryPlatform extends Connection {
    * @param  integer $pixels      Number of pixels to resize the longest side of an image.
    *   Use 0 to retain the original dimensions.
    *   
-   * @return Blackpulp\MinistryPlatform\File
+   * @return File
    */
   public function makeFile(
     $file_name,
@@ -243,7 +243,7 @@ class MinistryPlatform extends Connection {
   /**
    * Add Record call to MinistryPlatform.
    * 
-   * @param Blackpulp\MinistryPlatform\Record $record
+   * @param Record $record
    *
    * @return array
    */
@@ -277,7 +277,7 @@ class MinistryPlatform extends Connection {
   /**
    * Update Record call to MinistryPlatform.
    *  
-   * @param Blackpulp\MinistryPlatform\Record $record
+   * @param Record $record
    *
    * @return array
    */
@@ -410,7 +410,7 @@ class MinistryPlatform extends Connection {
    * 
    * @param  RecurringRecord $recurring_record
    * 
-   * @return Blackpulp\MinistryPlatform\StoredProcedureResult 
+   * @return StoredProcedureResult 
    */
   public function getRecurringRecords(RecurringRecord $recurring_record) {
 
@@ -443,7 +443,7 @@ class MinistryPlatform extends Connection {
   /**
    * GetUserInfo() API call
    *
-   * @return Blackpulp\MinistryPlatform\StoredProcedureResult 
+   * @return StoredProcedureResult 
    */
   
   public function getUserInfo() {
