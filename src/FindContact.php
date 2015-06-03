@@ -98,7 +98,7 @@ class FindContact
 
     $mp = new MinistryPlatform;
     
-    $result = $mp->storedProcedure("api_blackpulp_FindMatchingContact", [
+    $this->matches = $mp->storedProcedure("api_blackpulp_FindMatchingContact", [
       "FirstName" => $this->first_name,
       "LastName" => $this->last_name,
       "EmailAddress" => $this->email,
@@ -106,10 +106,10 @@ class FindContact
       "DOB" => isset($this->dob) ? $mp->formatSoapDateTime($this->dob) : NULL,
     ]);
 
-    if($result) {
+    $this->matches = $result;
 
-      $this->matches = $result;
-      
+    if($this->matches->getTableCount() > 0) {
+
       foreach($this->matches->getTable(0) as $item) {
         if( is_array($item) ) {
           $this->number_of_matches = count( $this->matches->getTable(0) );
@@ -123,6 +123,7 @@ class FindContact
     } else {
 
       $this->number_of_matches = 0;
+      
     }
 
     return $this;
