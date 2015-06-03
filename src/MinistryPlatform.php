@@ -142,7 +142,7 @@ class MinistryPlatform extends Connection {
     $response = $this->execute($function, $parameters);
 
     if($response->UserID == 0) {
-      throw new MinistryPlatformException("Authentication failed. Please check your username and password.");
+      throw new MinistryPlatformException("Authentication failed. Please check the supplied unique identifier.");
     }
 
     $this->user_id = (int)$response->UserID;
