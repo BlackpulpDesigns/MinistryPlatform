@@ -117,7 +117,6 @@ class Base {
     $this->record_description = $_GET['recordDescription'];
     $this->selection_id = $_GET['s'];
     $this->selection_count = $_GET['sc'];
-    $this->selection = $this->setSelection();
     $this->pagination = $_GET['p'];
     $this->sort_order = !empty($_GET['o']) ? $_GET['o'] : "";
     $this->query_string = !empty($_GET['q']) ? $_GET['q'] : "";
@@ -125,6 +124,8 @@ class Base {
     
     $this->mp = new MinistryPlatform();
     $this->user = $this->mp->authenticateGuid($this->user_guid);
+
+    $this->selection = $this->setSelection();
   }
 
 
@@ -148,6 +149,7 @@ class Base {
 
     if(is_numeric($this->selection_count) && $this->selection_count > 0)
     {
+      
       $sp = "api_Common_GetSelection";
       $params = [
         "UserID" => $this->user->getId()
@@ -155,7 +157,7 @@ class Base {
         ,"SelectionID" => $this->selection_id
       ];
 
-      $this->selection = $this->mp->storedProcedure($sp, $params)->getTable(0);
+      $this->selection = $this->mp->storedProcedure($sp, $params);
 
     }
 
