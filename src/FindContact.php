@@ -8,7 +8,7 @@ use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
  * 
  * @author Ken Mulford <ken@blackpulp.com>
  * @category MinistryPlatform
- * @version  1.0
+ * @version  1.1
  */
 
 /**
@@ -30,25 +30,17 @@ class FindContact
   protected $last_name;
 
   /**
-   * e-mail address
-   * @var string
+   * optional_fields
+   * @var array associative array of all optional matching parameters
    */
-  protected $email;
+  
+  protected $optional_fields = [];
 
   /**
-   * phone number
+   * stored procedure used to match contacts
    * @var string
    */
-  protected $phone;
-  
-  /**
-   * Date of Birth
-   *
-   * The DOB of the person who should be matched.
-   * 
-   * @var string $dob
-   */
-  protected $dob;
+  protected $sp = "api_Common_FindMatchingContact";
 
   /**
    * Results from the FindMatchingContact stored procedure
@@ -70,16 +62,36 @@ class FindContact
    * 
    * @param string $first_name
    * @param string $last_name 
-   * @param string $email      
-   * @param string $phone
-   * @param string $dob
+   * @param array $optional_fields
    */
-  public function __construct( $first_name, $last_name, $email='', $phone='', $dob=null) {
+  public function __construct( $first_name, $last_name, $optional_fields) {
     $this->first_name = $first_name;
     $this->last_name = $last_name;
-    $this->email = $email;
-    $this->phone = $phone;
-    $this->dob = $dob;
+    $this->optional_fields = $optional_fields;
+  }
+
+  /**
+   * Get the name of the current stored procedure
+   * 
+   * @return string
+   */
+  public function getStoredProcedure() {
+
+    return $this->sp;
+
+  }
+
+  /**
+   * Configure the stored procedure to be used for contact matching.
+   * 
+   * @param string $sp
+   */
+  public function setStoredProcedure($sp) {
+
+    $this->sp = $sp;
+
+    return $this;
+
   }
 
   /**
@@ -110,24 +122,18 @@ class FindContact
    *
    * @return $this
    */
-  protected function setMatches($sp = "api_blackpulp_FindMatchingContact", $user_fields=[]) {
+  protected function setMatches() {
 
     $mp = new MinistryPlatform;
 
-    if( count($user_fields) > 0 ) {
-      $matching_fields = $user_fields;
-    }
-    else {
-      $matching_fields = [
-        "FirstName" => $this->first_name,
-        "LastName" => $this->last_name,
-        "EmailAddress" => $this->email,
-        "Phone" => $this->phone,
-        "DOB" => isset($this->dob) ? $mp->formatSoapDateTime($this->dob) : NULL,
-      ];
-    }
+    $matching_fields = [
+      "FirstName" => $this->first_name,
+      "LastName" => $this->last_name
+    ];
+
+    $matching_fields = array_merge($matching_fields, $this->optional_fields);
     
-    $this->matches = $mp->storedProcedure($sp, $matching_fields);
+    $this->matches = $mp->storedProcedure($this->sp, $matching_fields);
 
     if($this->matches->getTableCount() > 0) {
 

@@ -8,7 +8,7 @@ use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
  * 
  * @author Ken Mulford <ken@blackpulp.com>
  * @category MinistryPlatform
- * @version  1.0
+ * @version  2.0
  */
 
 /**
@@ -49,7 +49,7 @@ class Record
    * Instantiate a Record object.
    * 
    * @param Table  $table
-   * @param [type] $fields
+   * @param array $fields
    */
   public function __construct(Table $table, $fields) {
 
@@ -62,7 +62,7 @@ class Record
   /**
    * Save a record to MinistryPlatform.
    *
-   * @return JSON $return
+   * @return Record $return
    */
 
   public function save() {
