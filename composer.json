@@ -10,7 +10,8 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "nesbot/carbon": "~1.14"
+    "nesbot/carbon": "~1.14",
+    "laravel/framework": "5.*"
   },
   "require-dev": {
     "phpdocumentor/phpdocumentor": "2.*",

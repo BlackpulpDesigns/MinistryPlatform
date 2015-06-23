@@ -1,4 +1,4 @@
-<?php namespace Blackpulp\MinistryPlatform;
+<?php namespace Blackpulp\MinistryPlatform\Laravel;
 
 use \Illuminate\Support\ServiceProvider;
 

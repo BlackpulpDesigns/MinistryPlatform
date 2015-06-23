@@ -6,7 +6,7 @@ This is a new library for interacting with MinistryPlatform's SOAP XML API. Seve
 
 Require the library from the command line within your project.
 
-`composer require "BlackpulpDesigns/MinistryPlatform"`
+`composer require "blackpulp/ministryplatform"`
 
 ## One Time Setup
 ### Laravel 5.x
@@ -21,11 +21,11 @@ MP_SERVER_NAME=my.church.org
 
 Next, open /config/app.php and paste the following line at the bottom of your service providers array.
 
-`'Blackpulp\MinistryPlatform\MinistryPlatformServiceProvider'`
+`'Blackpulp\MinistryPlatform\Laravel\MinistryPlatformServiceProvider'`
 
 Finally, publish the config file via the following artisan command.
 
-<code lang="php">php artisan vendor:publish</code>
+`php artisan vendor:publish`
 
 ###Lumen 5.x
 
