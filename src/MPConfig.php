@@ -18,7 +18,7 @@ use Blackpulp\MinistryPlatform\MinistryPlatform;
  * table.
  * 
  */
-class Config
+class MPConfig
 {
   
   /**

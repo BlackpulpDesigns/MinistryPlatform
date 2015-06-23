@@ -31,7 +31,7 @@ Finally, publish the config file via the following artisan command.
 
 `php artisan vendor:publish`
 
-###Lumen 5.x
+### Lumen 5.x
 
 Coming soon
 
