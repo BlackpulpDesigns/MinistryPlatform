@@ -14,9 +14,9 @@ Open your project's .env file and add the following items along with their value
 
 ```php
 MP_DOMAIN_GUID={{domain guid}}
-MP_WSDL=https://elcid.blackpulp.com/ministryplatformapi/api.svc?WSDL
-MP_API_PASSWORD={{api password||
-MP_SERVER_NAME=elcid.blackpulp.com
+MP_WSDL=https://my.church.org/ministryplatformapi/api.svc?WSDL
+MP_API_PASSWORD={{api password}}
+MP_SERVER_NAME=my.church.org
 ```
 
 Next, open /config/app.php and paste the following line at the bottom of your service providers array.
