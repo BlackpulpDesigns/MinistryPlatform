@@ -1,4 +1,4 @@
-This is the new standard PHP library for interacting with MinistryPlatform's SOAP XML API. Several examples for the objects are listed below, and you can also view the /docs/ folder for a complete list of methods and class properties.
+This is a new library for interacting with MinistryPlatform's SOAP XML API. Several examples for the objects are listed below, and you can also view the /docs/ folder for a complete list of methods and class properties.
 
 =Installation=
 
@@ -6,10 +6,10 @@ This is the new standard PHP library for interacting with MinistryPlatform's SOA
 
 Require the library from the command line within your project.
 
-<code lang="php">composer require "blackpulp/ministryplatform"</code>
+<code lang="php">composer require "BlackpulpDesigns/MinistryPlatform"</code>
 
 ==One Time Setup==
-===Laravel 5.x===
+ === Laravel 5.x === 
 Open your project's .env file and add the following items along with their values.
 <code lang="php">
 MP_DOMAIN_GUID={{domain guid}}
@@ -26,7 +26,7 @@ Finally, publish the config file via the following artisan command.
 
 <code lang="php">php artisan vendor:publish</code>
 
-===Lumen 5.x===
+ === Lumen 5.x === 
 
 Coming soon
 
@@ -58,11 +58,11 @@ $user = $mp->authenticate($username, $password);
 
 Additional methods available from the authenticated user's object:
 
-===Security Roles===
+ === Security Roles === 
 Fetch the Security Roles for the authenticated user
 <code lang="php">$security_roles = $user->getRoles();</code>
 
-===User Info===
+ === User Info === 
 Retrieve various data from the API's "GetUserInfo()" method. $info is returned as a StoredProcedureResult object and can be interacted with in the same way as Stored Procedures.
 <code lang="php">$info = $user->getInfo();</code>
 
@@ -80,7 +80,7 @@ $marital_statuses = $info->getTable(5);
 ==Stored Procedures==
 Pass the Stored Procedure name and an array of parameters to the storedProcedure method.
 
-===Execute Stored Procedure===
+ === Execute Stored Procedure === 
 <code lang="php">
 $mp = new MinistryPlatform($_SESSION['audit_log_user_id']);
 
@@ -99,7 +99,7 @@ $result = $mp->storedProcedure($sp, $params);
 
 Once you have the StoredProcedureResult object ($result in the above example), you can examine it a bit further.
 
-===Retrieve Stored Procedure Results===
+ === Retrieve Stored Procedure Results === 
 Return the Raw XML data (so you can manually access $raw->NewDataSet->Table... though you really would never want to do that)
 <code lang="php">$result->getRaw();</code>
 
@@ -113,7 +113,7 @@ Access the array representation of a specific table in the dataset
 
 Instantiating a new Record object requires the table name, the primary key's field name, and an array of field=>value pairs.
 
-===Ways to Instantiate a Record===
+ === Ways to Instantiate a Record === 
 
 1. Via MinistryPlatform::makeRecord()
 <code lang="php">
@@ -143,14 +143,14 @@ $record = $mp->makeTable($table, $primary_key)->makeRecord($fields);
 
 Note that both methods result in the same resulting Record object.
 
-===Saving Records===
+ === Saving Records === 
 
 Saving is as simple as calling the save method. A new record will be created if the Record's $primary_key value is not an array key in the $record->fields array. Otherwise, the Primary Key will be provided and the record will be updated instead.
 <code lang="php">$record->save()</code>
 
 '''Please Note: '''When a record is initially created, the Primary Key value is automatically appended to the list of fields for that record. Doing this ensures that if $record->save() is called a second time you will not accidentally create another new record. If you must create a second record, create a new instance of the Record object.
 
-===Examples===
+ === Examples === 
 
 '''existing''' Contact record
 <code lang="php">
@@ -206,7 +206,7 @@ Saving is as simple as calling the save method. A new record will be created if 
 
 ==Attaching Files==
 
-===Instantiate a File===
+ === Instantiate a File === 
 <code lang="php">
 $mp = new MinistryPlatform();
 
@@ -225,17 +225,17 @@ $file = $mp->makeFile(
 );
 </code>
 
-===Attaching the file===
+ === Attaching the file === 
 <code lang="php">$file->attach();</code>
 
-===Set File as Default Image===
+ === Set File as Default Image === 
 <code lang="php">$file->makeDefault();</code>
 
 ==Recurring Records==
 
 Recurring records require an instance of the Record object (see above).
 
-===Instantiating===
+ === Instantiating === 
 
 This will extend the addRecord() example where a new Event record was created.
 <code lang="php">
@@ -265,11 +265,11 @@ At this point, $series represents a RecurringRecord object. Before we can save i
       ->setSaturday(0);
 </code>
 
-===Creating the Recurrence in MP===
+ === Creating the Recurrence in MP === 
 Once the RecurringRecord object has been adequately set, you can save the series.
 <code lang="php">$series->create();</code>
 
-===Misc===
+ === Misc === 
 
 Since the Record object is only a property, if you had two separate records that both needed the same series you can update the Record and generate the new series pretty easily.
 
