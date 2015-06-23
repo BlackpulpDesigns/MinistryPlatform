@@ -81,7 +81,7 @@ class Record
       $this->fields[$key] = $return[0];
     }
 
-    $this->record_id = $return[0];
+    $this->record_id = (int)$return[0];
     $this->message = $return[2];
 
     return $this;
@@ -95,7 +95,7 @@ class Record
 
   public function getId() {
 
-    return $this->record_id;
+    return (int)$this->record_id;
 
   }
 
