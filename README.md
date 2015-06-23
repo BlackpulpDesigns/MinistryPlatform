@@ -1,5 +1,9 @@
 This is a new library for interacting with MinistryPlatform's SOAP XML API. Several examples for the objects are listed below, and you can also view the /docs/ folder for a complete list of methods and class properties.
 
+# Requirements
+
+The library is currently built to work with Laravel 5.x applications. If there are requests to make it framework-agnostic we can certainly consider it. We also require Carbon - but seriously, why wouldn't you already be using it - and PHP 5.4 or above. 
+
 # Installation
 
 ## Composer
