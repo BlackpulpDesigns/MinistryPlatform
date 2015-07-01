@@ -169,6 +169,12 @@ class MinistryPlatform extends Connection {
     return new StoredProcedureResult( $this->execute($function, $parameters)->ExecuteStoredProcedureResult );
   }
 
+  public function findContact($first, $last, $options = array()) {
+
+    return new FindContact($this, $first, $last, $options);
+
+  }
+
   /**
    * Create a new MinistryPlatform record object.
    * 

@@ -1,6 +1,5 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
-use Blackpulp\MinistryPlatform\MinistryPlatform;
 use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
 
 /**
@@ -57,6 +56,9 @@ class FindContact
   protected $number_of_matches;
 
 
+  protected $mp;
+
+
   /**
    * Construct Method
    * 
@@ -64,7 +66,8 @@ class FindContact
    * @param string $last_name 
    * @param array $optional_fields
    */
-  public function __construct( $first_name, $last_name, $optional_fields) {
+  public function __construct($mp, $first_name, $last_name, $optional_fields) {
+    $this->mp = $mp;
     $this->first_name = $first_name;
     $this->last_name = $last_name;
     $this->optional_fields = $optional_fields;
@@ -124,8 +127,6 @@ class FindContact
    */
   protected function setMatches() {
 
-    $mp = new MinistryPlatform;
-
     $matching_fields = [
       "FirstName" => $this->first_name,
       "LastName" => $this->last_name
@@ -133,7 +134,7 @@ class FindContact
 
     $matching_fields = array_merge($matching_fields, $this->optional_fields);
     
-    $this->matches = $mp->storedProcedure($this->sp, $matching_fields);
+    $this->matches = $this->mp->storedProcedure($this->sp, $matching_fields);
 
     if($this->matches->getTableCount() > 0) {
 
@@ -183,8 +184,9 @@ class FindContact
       $user_data = $this->matches->getTable(0);
 
       if( isset($user_data['User_GUID']) && $user_data['User_GUID'] > 0 ) {
-        $mp = new MinistryPlatform($user_data['User_Account']);
-        return $mp->authenticateGuid($user_data['User_GUID']);
+        
+        return $this->mp->authenticateGuid($user_data['User_GUID']);
+        
       }
       else {
         throw new MinistryPlatformException("The matched contact has no User Account.");

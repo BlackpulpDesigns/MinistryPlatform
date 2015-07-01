@@ -1,7 +1,6 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
 use StoredProcedureResult;
-use Blackpulp\MinistryPlatform\MinistryPlatform;
 
 /**
  * MinistryPlatform Config
@@ -42,6 +41,8 @@ class MPConfig
    */
   protected $config;
 
+  protected $mp;
+
 
   /**
    * Instantiate a Config object and load the Configuration data.
@@ -51,8 +52,9 @@ class MPConfig
    *   to fetch the config data from MinistryPlatform in the event you've written a custom 
    *   stored procedure.
    */
-  public function __construct($application_code = "COMMON", $stored_procedure = "api_Common_GetConfigurationSettings") {
+  public function __construct($mp, $application_code = "COMMON", $stored_procedure = "api_Common_GetConfigurationSettings") {
 
+    $this->mp = $mp;
     $this->setApplicationCode($application_code);
     $this->setStoredProcedure($stored_procedure);
     $this->updateConfigurationSettings();
@@ -66,9 +68,7 @@ class MPConfig
    */
   public function updateConfigurationSettings() {
 
-    $mp = new MinistryPlatform();
-
-    $config = $mp->storedProcedure(
+    $config = $this->mp->storedProcedure(
                           $this->stored_procedure, 
                           ['ApplicationCode' => $this->application_code]
                         );
