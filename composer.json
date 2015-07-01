@@ -2,6 +2,7 @@
   "name": "blackpulp/ministryplatform",
   "description": "Library to consume the MinistryPlatform SOAP XML API.",
   "keywords": ["blackpulp", "ministryplatform"],
+  "license": "MIT",
   "authors": [
     {
       "name": "Blackpulp",
@@ -17,7 +18,7 @@
     "michelf/php-markdown": "^1.0"
   },
   "suggest": {
-      "laravel/framework": "Use the MinistryPlatform library with the Laravel framework",
+      "laravel/framework": "Use the MinistryPlatform library with the Laravel framework"
     },
   "autoload": {
     "psr-4": {
