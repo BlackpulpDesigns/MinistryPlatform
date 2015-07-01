@@ -1,7 +1,5 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
-use \Illuminate\Support\Facades\Config;
-
 /**
  * MinistryPlatform Connection
  * 
@@ -47,22 +45,28 @@ class Connection
 
   /**
    * Set up the Connection Object for use with the SoapClient class.
-   *
-   * @return void
+   * 
+   * @param  string $wsdl
+   * @param  string $guid
+   * @param  string $password
+   * @param  string $servername
+   * 
+   * @return self             
    */
-  function configureConnection()
+  function configureConnection($wsdl, $guid, $password, $servername)
   {
       
-    $this->wsdl = Config::get("mp.wsdl");
-    $this->guid = Config::get("mp.guid");
-    $this->pw = Config::get("mp.password");
-    $this->servername = Config::get("mp.name");
+    $this->wsdl = $wsdl;
+    $this->guid = $guid;
+    $this->pw = $password;
+    $this->servername = $servername;
 
     $this->params = [
         'trace'        => true,
         'exceptions'   => 1
     ];
-    return true;
+
+    return $this;
   }
 
 }

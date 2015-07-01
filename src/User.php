@@ -79,6 +79,11 @@ class User
    */
   protected $roles = [];
 
+  /**
+   * An instance of the core MinistryPlatform object
+   * 
+   * @var MinistryPlatform
+   */
   protected $mp;
 
 

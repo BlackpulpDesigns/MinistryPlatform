@@ -4,6 +4,9 @@ use Blackpulp\MinistryPlatform\MinistryPlatformException;
 use Blackpulp\MinistryPlatform\MinistryPlatform;
 use Blackpulp\MinistryPlatform\User;
 
+/**
+ * This class handles the base setup for setting up a Core Tool.
+ */
 class Base {
   
   /**

@@ -55,13 +55,18 @@ class FindContact
    */
   protected $number_of_matches;
 
-
+  /**
+   * An instance of the core MinistryPlatform object
+   * 
+   * @var MinistryPlatform
+   */
   protected $mp;
 
 
   /**
    * Construct Method
    * 
+   * @param MinistryPlatform $mp
    * @param string $first_name
    * @param string $last_name 
    * @param array $optional_fields

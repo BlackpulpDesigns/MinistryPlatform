@@ -45,8 +45,13 @@ class Connection
 
   /**
    * Set up the Connection Object for use with the SoapClient class.
-   *
-   * @return void
+   * 
+   * @param  string $wsdl
+   * @param  string $guid
+   * @param  string $password
+   * @param  string $servername
+   * 
+   * @return self             
    */
   function configureConnection($wsdl, $guid, $password, $servername)
   {
@@ -60,7 +65,8 @@ class Connection
         'trace'        => true,
         'exceptions'   => 1
     ];
-    return true;
+
+    return $this;
   }
 
 }

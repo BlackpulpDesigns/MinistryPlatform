@@ -8,7 +8,7 @@ use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
  * 
  * @author Ken Mulford <ken@blackpulp.com>
  * @category MinistryPlatform
- * @version  1.0
+ * @version  2.0
  */
 
 /**
@@ -27,7 +27,7 @@ class Record
   /**
    * The associated Table
    * 
-   * @var Blackpulp\MinistryPlatform\Table
+   * @var Table
    */
   protected $table;
 
@@ -49,7 +49,7 @@ class Record
    * Instantiate a Record object.
    * 
    * @param Table  $table
-   * @param [type] $fields
+   * @param array $fields
    */
   public function __construct(Table $table, $fields) {
 
@@ -62,7 +62,7 @@ class Record
   /**
    * Save a record to MinistryPlatform.
    *
-   * @return JSON $return
+   * @return Record $return
    */
 
   public function save() {
@@ -81,7 +81,7 @@ class Record
       $this->fields[$key] = $return[0];
     }
 
-    $this->record_id = $return[0];
+    $this->record_id = (int)$return[0];
     $this->message = $return[2];
 
     return $this;
@@ -95,7 +95,7 @@ class Record
 
   public function getId() {
 
-    return $this->record_id;
+    return (int)$this->record_id;
 
   }
 
@@ -189,7 +189,7 @@ class Record
   /**
    * Retrieve the current MinistryPlatform instance
    * 
-   * @return Blackpulp\MinistryPlatform\MinistryPlatform
+   * @return MinistryPlatform
    */
   public function getMpInstance() {
 
@@ -225,7 +225,7 @@ class Record
   /**
    * Create a RecurringRecord object from the current record.
    * 
-   * @return Blackpulp\MinistryPlatform\RecurringRecord
+   * @return RecurringRecord
    */
   public function makeRecurring() {
 
