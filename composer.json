@@ -10,13 +10,15 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "nesbot/carbon": "~1.14",
-    "laravel/framework": "5.*"
+    "nesbot/carbon": "~1.14"
   },
   "require-dev": {
     "phpdocumentor/phpdocumentor": "2.*",
     "michelf/php-markdown": "^1.0"
   },
+  "suggest": {
+      "laravel/framework": "Use the MinistryPlatform library with the Laravel framework",
+    },
   "autoload": {
     "psr-4": {
       "Blackpulp\\MinistryPlatform\\": "src/"
