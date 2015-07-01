@@ -1,6 +1,5 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
-use \Log;
 use \SoapClient;
 use \SoapFault;
 use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
@@ -54,10 +53,10 @@ class MinistryPlatform extends Connection {
    * @param integer $user_id the User_ID who is performing the API calls.
    *   This is used for Audit Logging in MinistryPlatform.
    */
-  function __construct($user_id = 0) {
+  function __construct($wsdl, $guid, $password, $server_name, $user_id = 0) {
 
     $this->user_id = $user_id;
-    parent::configureConnection();
+    parent::configureConnection($wsdl, $guid, $password, $server_name);
 
   }
 
@@ -81,7 +80,6 @@ class MinistryPlatform extends Connection {
     }
     catch(SoapFault $soap_error) {
 
-      Log::error($soap_error->faultstring);
       throw new MinistryPlatformException($soap_error->faultstring);
       exit;
     }
@@ -92,8 +90,6 @@ class MinistryPlatform extends Connection {
       ]);
     }
     catch(SoapFault $soap_error) {
-      Log::error( $soap_error->faultstring );
-      Log::error( $this->client->__getLastRequest() );
       $request = $soap_error->faultstring . "\r\nXML REQUEST: " . $this->client->__getLastRequest();
       throw new MinistryPlatformException($request);
     }

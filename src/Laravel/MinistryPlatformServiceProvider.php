@@ -47,4 +47,20 @@ class MinistryPlatformServiceProvider extends ServiceProvider {
 
   }
 
+  public function _registerMinistryPlatform() {
+
+    $this->app->bindShared(
+      'Blackpulp\MinistryPlatform\MinistryPlatform',
+      function($app) {
+        return new MinistryPlatform (
+                    $app->config->get('mp.wsdl'),
+                    $app->config->get('mp.guid'),
+                    $app->config->get('mp.password'),
+                    $app->config->get('mp.name')
+        );
+      }
+    );
+
+  }
+
 }

@@ -1,7 +1,5 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
-use \Illuminate\Support\Facades\Config;
-
 /**
  * MinistryPlatform Connection
  * 
@@ -50,13 +48,13 @@ class Connection
    *
    * @return void
    */
-  function configureConnection()
+  function configureConnection($wsdl, $guid, $password, $servername)
   {
       
-    $this->wsdl = Config::get("mp.wsdl");
-    $this->guid = Config::get("mp.guid");
-    $this->pw = Config::get("mp.password");
-    $this->servername = Config::get("mp.name");
+    $this->wsdl = $wsdl;
+    $this->guid = $guid;
+    $this->pw = $password;
+    $this->servername = $servername;
 
     $this->params = [
         'trace'        => true,
