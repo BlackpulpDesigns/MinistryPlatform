@@ -1,6 +1,5 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
-use Blackpulp\MinistryPlatform\MinistryPlatform;
 use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
 
 /**
@@ -80,6 +79,8 @@ class User
    */
   protected $roles = [];
 
+  protected $mp;
+
 
 
   /**
@@ -94,8 +95,9 @@ class User
    * @return void
    */
 
-  public function __construct( $user, $username="", $user_guid="") {
+  public function __construct($mp, $user, $username="", $user_guid="") {
 
+    $this->mp = $mp;
     $this->id = (int)$user->UserID;
     $this->username = isset($user->UserName) ? (string)$user->UserName : $username;
     $this->display_name = (string)$user->DisplayName;
@@ -109,9 +111,7 @@ class User
 
   public function setUserInfoFromGuid() {
 
-    $mp = new MinistryPlatform($this->id);
-    
-    $this->info = $mp->storedProcedure("api_blackpulp_getUserInfoByGuid", [
+    $this->info = $this->mp->storedProcedure("api_blackpulp_getUserInfoByGuid", [
       "GUID" => $this->user_guid
     ]);
 
@@ -209,8 +209,7 @@ class User
    */
   protected function setSecurityRoles() {
 
-    $mp = new MinistryPlatform($this->id);
-    $this->roles = $mp->storedProcedure("api_Common_GetUserRoles", ["UserID" => $this->id])->getTableKeyValuePair(0);
+    $this->roles = $this->mp->storedProcedure("api_Common_GetUserRoles", ["UserID" => $this->id])->getTableKeyValuePair(0);
 
     return $this;
 
@@ -243,8 +242,7 @@ class User
    */
   protected function setInfo() {
 
-    $mp = new MinistryPlatform($this->id);
-    $this->info = $mp->getUserInfo();
+    $this->info = $this->mp->getUserInfo();
 
     return $this;
 

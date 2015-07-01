@@ -123,7 +123,7 @@ class MinistryPlatform extends Connection {
 
     $this->user_id = (int)$response->UserID;
 
-    return new User( $response, $username );
+    return new User($this, $response, $username );
   }
 
   public function authenticateGuid($guid) {
@@ -143,7 +143,7 @@ class MinistryPlatform extends Connection {
 
     $this->user_id = (int)$response->UserID;
 
-    return new User( $response, "", $guid );
+    return new User($this, $response, "", $guid );
   }
 
   /**
