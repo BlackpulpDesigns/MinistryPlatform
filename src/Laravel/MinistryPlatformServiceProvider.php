@@ -44,6 +44,7 @@ class MinistryPlatformServiceProvider extends ServiceProvider {
   public function register() {
 
     $this->mergeConfigFrom(__DIR__.'/config/mp.php', 'mp');
+    $this->_registerMinistryPlatform();
 
   }
 
