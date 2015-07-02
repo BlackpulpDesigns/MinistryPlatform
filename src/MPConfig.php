@@ -62,7 +62,6 @@ class MPConfig
     $this->mp = $mp;
     $this->setApplicationCode($application_code);
     $this->setStoredProcedure($stored_procedure);
-    $this->updateConfigurationSettings();
 
   }
 
@@ -114,6 +113,10 @@ class MPConfig
    */
   public function getConfig()
   {
+    if( !$this->config ) {
+      $this->updateConfigurationSettings();
+    }
+    
     return $this->config;
   }
 
