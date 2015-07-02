@@ -170,9 +170,9 @@ class MinistryPlatform extends Connection {
     return new StoredProcedureResult( $this->execute($function, $parameters)->ExecuteStoredProcedureResult );
   }
 
-  public function makeConfiguration() {
+  public function makeConfiguration($application_code = "COMMON") {
 
-    return new MPConfig($this);
+    return new MPConfig($this, $application_code);
 
   }
 
