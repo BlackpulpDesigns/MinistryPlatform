@@ -3,6 +3,7 @@
 use \SoapClient;
 use \SoapFault;
 use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
+use Blackpulp\MinistryPlatform\CoreTool\Base as CoreTool;
 
 /**
  * The primary class to interact with the MinistryPlatform SOAP XML API.
@@ -167,6 +168,12 @@ class MinistryPlatform extends Connection {
     ];
 
     return new StoredProcedureResult( $this->execute($function, $parameters)->ExecuteStoredProcedureResult );
+  }
+
+  public function makeCoreTool() {
+
+    return new CoreTool($this);
+
   }
 
   public function findContact($first, $last, $options = array()) {
