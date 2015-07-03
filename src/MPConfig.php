@@ -52,6 +52,7 @@ class MPConfig
   /**
    * Instantiate a Config object and load the Configuration data.
    *
+   * @param MinistryPlatform $mp 
    * @param string $application_code The MP Application_Code value you want to get values for.
    * @param string $stored_procedure Provides an override option for the stored procedure used
    *   to fetch the config data from MinistryPlatform in the event you've written a custom 
@@ -116,7 +117,7 @@ class MPConfig
     if( !$this->config ) {
       $this->updateConfigurationSettings();
     }
-    
+
     return $this->config;
   }
 
@@ -167,6 +168,10 @@ class MPConfig
    */
   public function getConfigValue($key) {
 
+    if(!$this->config) {
+      $this->getConfig();
+    }
+    
     $config = $this->config->getTableKeyValuePair(0);
 
     return $config[$key];

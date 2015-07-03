@@ -95,7 +95,7 @@ class StoredProcedureResult
    */
   public function getTable($key = 0) {
 
-    if( isset($this->tables[$key]) ) {
+    if( $this->tables && isset($this->tables[$key]) ) {
       return $this->tables[$key];  
     }
     else {

@@ -51,6 +51,11 @@ class MinistryPlatform extends Connection {
 
   /**
    * Initialize the MinistryPlatform Object
+   *
+   * @param string  $wsdl
+   * @param string  $guid        
+   * @param string  $password    
+   * @param string  $server_name
    * @param integer $user_id the User_ID who is performing the API calls.
    *   This is used for Audit Logging in MinistryPlatform.
    */
@@ -127,6 +132,12 @@ class MinistryPlatform extends Connection {
     return new User($this, $response, $username );
   }
 
+  /**
+   * Authenticate a user by using the User_GUID value instead of username + password
+   * 
+   * @param  string $guid
+   * @return User
+   */
   public function authenticateGuid($guid) {
 
     $function = "AuthenticateGUIDS";
@@ -170,18 +181,37 @@ class MinistryPlatform extends Connection {
     return new StoredProcedureResult( $this->execute($function, $parameters)->ExecuteStoredProcedureResult );
   }
 
+  /**
+   * Create a configuration object 
+   * 
+   * @param  string $application_code
+   * @return MPConfig
+   */
   public function makeConfiguration($application_code = "COMMON") {
 
     return new MPConfig($this, $application_code);
 
   }
 
+  /**
+   * Generate a base CoreTool object
+   * 
+   * @return CoreTool\Base
+   */
   public function makeCoreTool() {
 
     return new CoreTool($this);
 
   }
 
+  /**
+   * Generate a FindContact instance
+   * 
+   * @param  string $first  
+   * @param  string $last   
+   * @param  array  $options
+   * @return FindContact
+   */
   public function findContact($first, $last, $options = array()) {
 
     return new FindContact($this, $first, $last, $options);

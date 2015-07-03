@@ -110,7 +110,7 @@ class Base {
   * Set all query params as properties, create an MP instance so hitting the MP API is quicker to do
   */
   
-  public function __construct()
+  public function __construct(MinistryPlatform $mp)
   {
 
     $this->domain = $_GET['dg'];
@@ -125,7 +125,7 @@ class Base {
     $this->query_string = !empty($_GET['q']) ? $_GET['q'] : "";
     $this->view_id = !empty($_GET['v']) ? $_GET['v'] : 0;
     
-    $this->mp = new MinistryPlatform();
+    $this->mp = $mp;
     $this->user = $this->mp->authenticateGuid($this->user_guid);
 
     $this->selection = $this->setSelection();
