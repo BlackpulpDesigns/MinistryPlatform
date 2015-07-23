@@ -2,8 +2,8 @@
 
 use \SoapClient;
 use \SoapFault;
-use MinistryPlatformException;
-use CoreTool\Base as CoreTool;
+use Blackpulp\MinistryPlatform\MinistryPlatformException;
+use Blackpulp\MinistryPlatform\CoreTool\Base as CoreTool;
 
 /**
  * The primary class to interact with the MinistryPlatform SOAP XML API.

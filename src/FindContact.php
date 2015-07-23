@@ -1,6 +1,6 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
-use MinistryPlatformException;
+use Blackpulp\MinistryPlatform\MinistryPlatformException;
 
 /**
  * MinistryPlatform FindContact

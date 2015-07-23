@@ -1,7 +1,7 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
-use MinistryPlatform;
-use MinistryPlatformException;
+use Blackpulp\MinistryPlatform\MinistryPlatform;
+use Blackpulp\MinistryPlatform\MinistryPlatformException;
 
 /**
  * MinistryPlatform Files
