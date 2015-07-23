@@ -11,7 +11,7 @@
 /**
  * This class handles exceptions for MinistryPlatform errors.
  */
-class Exception extends \Exception {
+class MinistryPlatformException extends \Exception {
 
   /**
    * A generic override for throwing Exceptions from MP.

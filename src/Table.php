@@ -1,8 +1,8 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
-use Blackpulp\MinistryPlatform\MinistryPlatform;
-use Blackpulp\MinistryPlatform\Record;
-use Blackpulp\MinistryPlatform\Exception as MinistryPlatformException;
+use MinistryPlatform;
+use Record;
+use MinistryPlatformException;
 
 /**
  * MinistryPlatform Table

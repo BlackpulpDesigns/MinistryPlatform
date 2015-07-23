@@ -1,6 +1,7 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
 use StoredProcedureResult;
+use MinistryPlatformException;
 
 /**
  * MinistryPlatform Config

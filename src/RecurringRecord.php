@@ -1,6 +1,7 @@
 <?php namespace Blackpulp\MinistryPlatform;
 
 use Carbon\Carbon;
+use MinistryPlatformException;
 
 /**
  * MinistryPlatform Records
