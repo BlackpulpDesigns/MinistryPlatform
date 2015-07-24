@@ -269,19 +269,17 @@ class StoredProcedureResult
       $value = $record;
       
       // handle booleans
-      // handle Float values
       // handle INT values
+      // handle other numeric values as float
       if(is_bool($record) ) {
         $value = (bool)$record;
       }
-      elseif(is_float($record) ) {
-        $value = (float)$record;
-      }
-      elseif(is_numeric($record) ) {
+      elseif(is_integer($record) ) {
         $value = (int)$record;
       }
-
-      
+      elseif(is_numeric($record) ) {
+        $value = (float)$record;
+      }
 
       // handle SimpleXMLElement values
       if( is_object($record) && get_class($record) == "SimpleXMLElement" ) {
