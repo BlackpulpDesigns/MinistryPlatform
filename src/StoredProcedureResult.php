@@ -3,6 +3,7 @@
 use Blackpulp\MinistryPlatform\MinistryPlatform;
 use Blackpulp\MinistryPlatform\MinistryPlatformException;
 use SimpleXMLElement;
+use Carbon\Carbon;
 
 /**
  * MinistryPlatform Stored Procedure Handling
@@ -267,20 +268,20 @@ class StoredProcedureResult
     foreach((array)$element as $field=>$record) {
       $value = $record;
       
-      // handle INT values
-      if(is_numeric($record) ) {
-        $value = (int)$record;
-      }
-
-      // handle Float values
-      if(is_float($record) ) {
-        $value = (float)$record;
-      }
-
       // handle booleans
+      // handle Float values
+      // handle INT values
       if(is_bool($record) ) {
         $value = (bool)$record;
       }
+      elseif(is_float($record) ) {
+        $value = (float)$record;
+      }
+      elseif(is_numeric($record) ) {
+        $value = (int)$record;
+      }
+
+      
 
       // handle SimpleXMLElement values
       if( is_object($record) && get_class($record) == "SimpleXMLElement" ) {
