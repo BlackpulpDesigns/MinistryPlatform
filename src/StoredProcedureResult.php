@@ -268,22 +268,21 @@ class StoredProcedureResult
     foreach((array)$element as $field=>$record) {
       $value = $record;
       
+      // handle SimpleXMLElement values
       // handle booleans
       // handle INT values
       // handle other numeric values as float
-      if(is_bool($record) ) {
-        $value = (bool)$record;
+      if( is_object($value) && get_class($value) == "SimpleXMLElement" ) {
+        $value = $this->processXMLElement($value);
       }
-      elseif(is_integer($record) ) {
-        $value = (int)$record;
+      elseif(is_bool($value) ) {
+        $value = (bool)$value;
       }
-      elseif(is_numeric($record) ) {
-        $value = (float)$record;
+      elseif(is_integer($value) ) {
+        $value = (int)$value;
       }
-
-      // handle SimpleXMLElement values
-      if( is_object($record) && get_class($record) == "SimpleXMLElement" ) {
-        $value = $this->processXMLElement($record);
+      elseif(is_numeric($value) ) {
+        $value = (float)$value;
       }
 
       $records[$field] = $value;
