@@ -285,12 +285,10 @@ class StoredProcedureResult
         if( preg_match($float_regex, $value) ) {
           // Floats
           $value = (float)$value;
-          \Log::info("Cast to Float" . $value);
         }
         else {
           // Integers
           $value = (int)$value;
-          \Log::info("Cast to Integer" . $value);
         }
 
       }
