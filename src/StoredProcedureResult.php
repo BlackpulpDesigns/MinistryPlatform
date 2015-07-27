@@ -210,7 +210,7 @@ class StoredProcedureResult
       foreach((array)$table as $contents) {
         
         $records = $this->processTableContents($contents);
-        
+
         $tables[$table_index] = $records;
         $table_index++;
 
@@ -237,7 +237,7 @@ class StoredProcedureResult
     $records = [];
     if( is_object($contents) && get_class($contents) == "SimpleXMLElement" ) {
 
-      $records = $this->processXMLElement($contents);
+      $records[] = $this->processXMLElement($contents);
 
     }
     else {
