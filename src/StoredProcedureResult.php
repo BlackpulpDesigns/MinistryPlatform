@@ -277,12 +277,22 @@ class StoredProcedureResult
       }
       elseif(is_bool($value) ) {
         $value = (bool)$value;
+        \Log::info("Cast to Boolean" . $value);
       }
-      elseif(is_integer($value) ) {
-        $value = (int)$value;
-      }
-      elseif(is_numeric($value) ) {
-        $value = (float)$value;
+      elseif( is_numeric($value) ) {
+        $float_regex = "/^[+-]?(\d*\.\d+([eE]?[+-]?\d+)?|\d+[eE][+-]?\d+)$/";
+
+        if( preg_match($float_regex, $value) ) {
+          // Floats
+          $value = (float)$value;
+          \Log::info("Cast to Float" . $value);
+        }
+        else {
+          // Integers
+          $value = (int)$value;
+          \Log::info("Cast to Integer" . $value);
+        }
+
       }
 
       $records[$field] = $value;
