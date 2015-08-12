@@ -275,9 +275,8 @@ class StoredProcedureResult
       if( is_object($value) && get_class($value) == "SimpleXMLElement" ) {
         $value = $this->processXMLElement($value);
       }
-      elseif(is_bool($value) ) {
-        $value = (bool)$value;
-        \Log::info("Cast to Boolean" . $value);
+      elseif( $value === "false" || $value === "true") ) {
+        $value = $value ==="true" ? true : false;
       }
       elseif( is_numeric($value) ) {
         $float_regex = "/^[+-]?(\d*\.\d+([eE]?[+-]?\d+)?|\d+[eE][+-]?\d+)$/";
