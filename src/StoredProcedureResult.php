@@ -266,7 +266,10 @@ class StoredProcedureResult
 
     $records = [];
     foreach((array)$element as $field=>$record) {
-      $value = $record;
+      
+      // Cast to string to prevent empty strings from being set to
+      // empty arrays.
+      $value = (string)$record;
       
       // handle SimpleXMLElement values
       // handle booleans
