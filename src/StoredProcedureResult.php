@@ -278,7 +278,7 @@ class StoredProcedureResult
       if( is_object($value) && get_class($value) == "SimpleXMLElement" ) {
         $value = $this->processXMLElement($value);
       }
-      elseif( $value === "false" || $value === "true") ) {
+      elseif( $value === "false" || $value === "true") {
         $value = $value ==="true" ? true : false;
       }
       elseif( is_numeric($value) ) {
