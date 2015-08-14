@@ -80,6 +80,12 @@ class File
   protected $guid;
 
   /**
+   * File Extension
+   * @var extension
+   */
+  protected $extension;
+
+  /**
    * Initialize a File object.
    * 
    * @param  string $file_name   The name of the file as it will be saved into MinistryPlatform.
@@ -92,18 +98,10 @@ class File
    *   Use 0 to retain the original dimensions.
    * @param MinistryPlatform $mp
    */
-  public function __construct(
-    $file_name,
-    $temp_name,
-    $description,
-    $page_id,
-    $record_id,
-    $is_image,
-    $pixels,
-    $mp = null
-  ) {
+  public function __construct($file_name, $temp_name, $description, $page_id,
+                              $record_id, $is_image, $pixels, $mp) {
 
-    $this->mp = is_null($mp) ? new MinistryPlatform() : $mp;
+    $this->mp = $mp;
     $this->name = $file_name;
     $this->description = $description;
     $this->binary = file_get_contents($temp_name);
@@ -111,6 +109,9 @@ class File
     $this->record_id = $record_id;
     $this->is_image = $is_image;
     $this->pixels = $pixels;
+
+    $path = pathinfo($temp_name);
+    $this->extension = $path['extension'];
   }
 
   /**
@@ -121,7 +122,6 @@ class File
   public function attach() {
 
     $response = $this->mp->attachFile($this);
-
     $this->guid = str_replace(".", "", $response[0]);
     $this->message = $response[2];
 
@@ -225,6 +225,20 @@ class File
 
     return $this->guid;
 
+  }
+
+  /**
+   * Get the absolute file path
+   */
+  public function getFilePath() {
+
+    $url = "https://" . $this->mp->getServerName() . "/";
+    $url .= $this->mp->getMpInstanceName() . "/";
+    $url .= "Api.svc/rst/getfile";
+    $url .= "?dn=" . $this->mp->getGuid();
+    $url .= "&fn=" . $this->getGuid() . "." . $this->extension;
+
+    return $url;
   }
 
   /**

@@ -69,4 +69,32 @@ class Connection
     return $this;
   }
 
+  public function getWsdl() {
+
+    return $this->wsdl;
+
+  }
+
+  public function getGuid() {
+
+    return $this->guid;
+
+  }
+
+  public function getServerName() {
+
+    return $this->servername;
+
+  }
+
+  public function getMpInstanceName() {
+    $instance = "ministryplatformapi";
+    $parts = explode("/", $this->wsdl );
+
+    if(isset($parts[3]) && strtolower($parts[3]) != $instance) {
+      $instance = $parts[3];
+    }
+    return $instance;
+  }
+
 }
