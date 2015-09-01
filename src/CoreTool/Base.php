@@ -128,7 +128,7 @@ class Base {
     $this->mp = $mp;
     $this->user = $this->mp->authenticateGuid($this->user_guid);
 
-    $this->selection = $this->setSelection();
+    $this->setSelection();
   }
 
 
@@ -139,7 +139,7 @@ class Base {
    */
   public function getSelection()
   {
-      
+    
     return $this->selection;
 
   }
