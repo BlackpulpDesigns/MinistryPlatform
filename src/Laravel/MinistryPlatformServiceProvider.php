@@ -54,7 +54,8 @@ class MinistryPlatformServiceProvider extends ServiceProvider {
       // single tenant
      $path = config_path('mp.php');
     }
-    $this->mergeConfigFrom($path, 'mp');
+    $this->app['config']->set('mp', require $path);
+
     $this->_registerMinistryPlatform();
 
   }
