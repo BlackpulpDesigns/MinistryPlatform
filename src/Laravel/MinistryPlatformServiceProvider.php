@@ -22,7 +22,7 @@ class MinistryPlatformServiceProvider extends ServiceProvider {
    *
    * @var bool
    */
-  protected $defer = false;
+  protected $defer = true;
 
   /**
    * Publish Configuration file.
@@ -34,6 +34,7 @@ class MinistryPlatformServiceProvider extends ServiceProvider {
 
     $this->publishes([
       __DIR__.'/config/mp.php' => config_path('mp.php'),
+      __DIR__.'/config/churches/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.php' => config_path('churches/XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX.php'),
     ]);
 
   }
@@ -44,8 +45,17 @@ class MinistryPlatformServiceProvider extends ServiceProvider {
    * @return void
    */
   public function register() {
+    $dg = $this->app->request->input('dg');
 
-    $this->mergeConfigFrom(__DIR__.'/config/mp.php', 'mp');
+    if($dg) {
+      // multi-tenant
+      $this->mergeConfigFrom(__DIR__.'/config/churches/'.$dg.'php', 'mp');
+    }
+    else {
+      // single tenant
+      $this->mergeConfigFrom(__DIR__.'/config/mp.php', 'mp');
+    }
+    
     $this->_registerMinistryPlatform();
 
   }
