@@ -45,7 +45,7 @@ class MinistryPlatformServiceProvider extends ServiceProvider {
    */
   public function register() {
 
-    $dg = $this->app->request->input('dg');
+    $dg = strtoupper( $this->app->request->input('dg') );
     if($dg) {
       // multi-tenant
       $path = config_path('churches/'. $dg .'.php');
