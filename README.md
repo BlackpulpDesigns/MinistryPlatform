@@ -64,7 +64,7 @@ documentation is still forthcoming on that configuration.
 
 ### Lumen 5.x
 
-Coming ~soon~ maybe?
+Coming ~~soon~~ maybe?
 
 #Usage
 

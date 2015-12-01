@@ -206,7 +206,7 @@ class User
 
     if( empty( $this->roles ) ) {
 
-      $this->setSecurityRoles();
+      $this->setSecurityRolesAndTools();
 
     }
 
@@ -215,11 +215,28 @@ class User
   }
 
   /**
+   * Get the user's Security Roles
+   * 
+   * @return array
+   */
+  public function getTools() {
+
+    if( empty( $this->tools ) ) {
+
+      $this->setSecurityRolesAndTools();
+
+    }
+
+    return $this->tools;
+
+  }
+
+  /**
    * Sets security roles
    * 
    * @return self
    */
-  protected function setSecurityRoles() {
+  protected function setSecurityRolesAndTools() {
 
     $result = $this->mp->storedProcedure("api_blackpulp_GetUserRoles", ["UserID" => $this->id]);
     $this->roles = $result->getTableKeyValuePair(0);
