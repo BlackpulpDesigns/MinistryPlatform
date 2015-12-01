@@ -80,6 +80,13 @@ class User
   protected $roles = [];
 
   /**
+   * All permitted Tools for the authenticated user
+   * 
+   * @var array
+   */
+  protected $tools = [];
+
+  /**
    * An instance of the core MinistryPlatform object
    * 
    * @var MinistryPlatform
@@ -214,7 +221,9 @@ class User
    */
   protected function setSecurityRoles() {
 
-    $this->roles = $this->mp->storedProcedure("api_Common_GetUserRoles", ["UserID" => $this->id])->getTableKeyValuePair(0);
+    $result = $this->mp->storedProcedure("api_blackpulp_GetUserRoles", ["UserID" => $this->id]);
+    $this->roles = $result->getTableKeyValuePair(0);
+    $this->tools = $result->getTableKeyValuePair(1);
 
     return $this;
 
