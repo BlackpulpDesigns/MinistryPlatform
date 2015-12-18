@@ -8,62 +8,62 @@ use Blackpulp\MinistryPlatform\User;
  * This class handles the base setup for setting up a Core Tool.
  */
 class Base {
-  
+
   /**
    * Church's domain GUID
-   * 
+   *
    * @var string
    */
   protected $domain;
-  
+
   /**
    * Current user's User_GUID
-   * 
+   *
    * @var string
    */
   protected $user_guid;
 
   /**
    * User object for the current user.
-   * 
+   *
    * @var Blackpulp\MinistryPlatform\User
    */
   protected $user;
 
   /**
    * ID of the current page.
-   * 
+   *
    * @var integer
    */
   protected $page_id;
 
   /**
    * Record ID.
-   * 
-   * If the tool is launched from an open record, this will be that record's ID. 
+   *
+   * If the tool is launched from an open record, this will be that record's ID.
    * If launched from the grid, this value will always be -1.
-   * 
+   *
    * @var integer
    */
   protected $record_id;
 
   /**
    * Brief description of the current record.
-   * 
+   *
    * @var string
    */
   protected $record_description;
 
   /**
    * ID of the active selection.
-   * 
+   *
    * @var int
    */
   protected $selection_id; // integer
 
   /**
    * Number of records present in the active selection.
-   * 
+   *
    * @var int
    */
   protected $selection_count;
@@ -71,9 +71,9 @@ class Base {
   /**
    * The current page of the grid view.
    *
-   * This may be deprecated since MP 2.0 uses lazy loading and 
+   * This may be deprecated since MP 2.0 uses lazy loading and
    * doesn't offer a paginated grid view.
-   * 
+   *
    * @var int
    */
   protected $pagination;
@@ -86,14 +86,14 @@ class Base {
 
   /**
    * Stores the grid's query string, if any
-   * 
+   *
    * @var string
    */
   protected $query_string;
 
   /**
    * Store's the active view_id, if any
-   * 
+   *
    * @var int
    */
   protected $view_id;
@@ -103,13 +103,13 @@ class Base {
    * @var array
    */
   protected $selection = [];
-  
+
   /**
   * Create the base coreTool object
-  * 
+  *
   * Set all query params as properties, create an MP instance so hitting the MP API is quicker to do
   */
-  
+
   public function __construct(MinistryPlatform $mp)
   {
 
@@ -124,7 +124,7 @@ class Base {
     $this->sort_order = !empty($_GET['o']) ? $_GET['o'] : "";
     $this->query_string = !empty($_GET['q']) ? $_GET['q'] : "";
     $this->view_id = !empty($_GET['v']) ? $_GET['v'] : 0;
-    
+
     $this->mp = $mp;
     $this->user = $this->mp->authenticateGuid($this->user_guid);
 
@@ -139,20 +139,22 @@ class Base {
    */
   public function getSelection()
   {
-    
+    if( count($this->selection) === 0 ) {
+      $this->setSelection();
+    }
     return $this->selection;
 
   }
-  
+
   /**
    * Retrieves the current selection - if one exists
    */
-  
+
   public function setSelection() {
 
     if(is_numeric($this->selection_count) && $this->selection_count > 0)
     {
-      
+
       $sp = "api_Common_GetSelection";
       $params = [
         "UserID" => $this->user->getId()
@@ -160,7 +162,7 @@ class Base {
         ,"SelectionID" => $this->selection_id
       ];
 
-      $this->selection = $this->mp->storedProcedure($sp, $params);
+      $this->selection = $this->mp->storedProcedure($sp, $params)->getTable(0);
 
     }
 
