@@ -4,7 +4,7 @@ use \Illuminate\Support\ServiceProvider;
 
 /**
  * The Laravel Service Provider
- * 
+ *
  * @author Ken Mulford <ken@blackpulp.com>
  * @category MinistryPlatform
  * @package  Blackpulp\MinistryPlatform
@@ -40,7 +40,7 @@ class MinistryPlatformServiceProvider extends ServiceProvider {
 
   /**
    * Registers bindings in the container.
-   * 
+   *
    * @return void
    */
   public function register() {
@@ -62,12 +62,12 @@ class MinistryPlatformServiceProvider extends ServiceProvider {
 
   /**
    * Specifically registers the MinistryPlatform object in the IoC.
-   * 
+   *
    * @return \Blackpulp\MinistryPlatform\MinistryPlatform
    */
   public function _registerMinistryPlatform() {
 
-    $this->app->bindShared(
+    $this->app->singleton(
       'Blackpulp\MinistryPlatform\MinistryPlatform',
       function($app) {
         return new \Blackpulp\MinistryPlatform\MinistryPlatform (
