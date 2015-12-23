@@ -4,7 +4,7 @@ use Blackpulp\MinistryPlatform\MinistryPlatformException;
 
 /**
  * MinistryPlatform Users
- * 
+ *
  * @author Ken Mulford <ken@blackpulp.com>
  * @category MinistryPlatform
  * @version  1.0
@@ -14,17 +14,17 @@ use Blackpulp\MinistryPlatform\MinistryPlatformException;
  * This class handles user-specific interactions.
  */
 class User
-{   
+{
   /**
    * User_ID
-   * 
+   *
    * @var int
    */
   protected $id;
 
   /**
    * Username
-   * 
+   *
    * @var string
    */
   protected $username;
@@ -34,61 +34,61 @@ class User
    *
    * @var  string
    */
-  
+
   protected $display_name;
 
   /**
    * Contact_ID
-   * 
+   *
    * @var int
    */
   protected $contact_id;
 
   /**
    * User_GUID
-   * 
+   *
    * @var string
    */
   protected $user_guid;
 
   /**
    * Email_Address
-   * 
+   *
    * @var string
    */
   protected $email;
 
   /**
    * Whether the user is allowed to impersonate other Platform users.
-   * 
+   *
    * @var bool
    */
   protected $impersonate;
 
   /**
    * An object that contains helpful information about the user.
-   * 
+   *
    * @var StoredProcedureResult
    */
   protected $info;
-  
+
   /**
    * All security roles for the authenticated user
-   * 
+   *
    * @var array
    */
   protected $roles = [];
 
   /**
    * All permitted Tools for the authenticated user
-   * 
+   *
    * @var array
    */
   protected $tools = [];
 
   /**
    * An instance of the core MinistryPlatform object
-   * 
+   *
    * @var MinistryPlatform
    */
   protected $mp;
@@ -97,11 +97,11 @@ class User
 
   /**
    * Create the User object
-   * 
+   *
    * @param \SimpleXMLElement $user Response from MP Authenticate method
-   * @param string $username If the MP AuthenticateUser() API call was 
+   * @param string $username If the MP AuthenticateUser() API call was
    * used, the username must be supplied.
-   * @param string $user_guid If the MP AuthenticateGUIDs() API call was 
+   * @param string $user_guid If the MP AuthenticateGUIDs() API call was
    * used, the guid must be supplied instead.
    *
    * @return void
@@ -133,7 +133,7 @@ class User
 
   /**
    * Get the user's User ID
-   * 
+   *
    * @return int
    */
   public function getId() {
@@ -144,7 +144,7 @@ class User
 
   /**
    * Get the user's Username
-   * 
+   *
    * @return string
    */
   public function getUserName() {
@@ -155,7 +155,7 @@ class User
 
   /**
    * Get the user's Contact ID
-   * 
+   *
    * @return int
    */
   public function getContactId() {
@@ -166,7 +166,7 @@ class User
 
   /**
    * Get the user's Display Name
-   * 
+   *
    * @return string
    */
   public function getDisplayName() {
@@ -177,7 +177,7 @@ class User
 
   /**
    * Get the user's E-mail Address
-   * 
+   *
    * @return string
    */
   public function getEmail() {
@@ -188,7 +188,7 @@ class User
 
   /**
    * Get whether the user can impersonate other Platform users
-   * 
+   *
    * @return boolean
    */
   public function getImpersonate() {
@@ -199,7 +199,7 @@ class User
 
   /**
    * Get the user's Security Roles
-   * 
+   *
    * @return array
    */
   public function getRoles() {
@@ -216,7 +216,7 @@ class User
 
   /**
    * Get the user's Security Roles
-   * 
+   *
    * @return array
    */
   public function getTools() {
@@ -233,7 +233,7 @@ class User
 
   /**
    * Sets security roles
-   * 
+   *
    * @return self
    */
   protected function setSecurityRolesAndTools() {
@@ -251,7 +251,7 @@ class User
    *
    * Also returns lookup tables for Genders, Marital Statuses, Prefixes,
    * and Suffixes.
-   * 
+   *
    * @return StoredProcedureResult
    */
   public function getInfo() {
@@ -281,7 +281,7 @@ class User
 
   /**
    * Takes getInfo() and turns lookup arrays into Key-Value pairs.
-   * 
+   *
    * @return array
    */
   public function getFormattedTableData() {
@@ -302,6 +302,12 @@ class User
     }
 
     return $return;
+
+  }
+
+  public function getMpInstance() {
+
+    return $this->mp;
 
   }
 
