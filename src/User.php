@@ -115,7 +115,7 @@ class User
     $this->display_name = (string)$user->DisplayName;
     $this->contact_id = (int)$user->ContactID;
     $this->user_guid = isset($user->UserGUID) ? (string)$user->UserGUID : $user_guid;
-    $this->email = (string)$user->ContactEmail;
+    $this->email = isset($user->ContactEmail) ? (string)$user->ContactEmail: null;
     $this->impersonate = (bool)$user->CanImpersonate;
 
     $this->getRoles();
