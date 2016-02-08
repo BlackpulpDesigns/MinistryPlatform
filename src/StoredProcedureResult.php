@@ -7,7 +7,7 @@ use Carbon\Carbon;
 
 /**
  * MinistryPlatform Stored Procedure Handling
- * 
+ *
  * @author Ken Mulford <ken@blackpulp.com>
  * @category MinistryPlatform
  * @version  1.0
@@ -21,40 +21,40 @@ use Carbon\Carbon;
  */
 
 class StoredProcedureResult
-{   
+{
   /**
    * The full raw result.
-   * 
+   *
    * @var SimpleXMLElement
    */
   protected $result;
 
   /**
    * The XML schema object returned. Not sure if this is useful or not..
-   * 
+   *
    * @var SimpleXMLElement
    */
   protected $schema;
 
   /**
    * A simple count of all tables returned in the dataset.
-   * 
+   *
    * @var int
    */
   protected $table_count;
 
   /**
-   * An array representation of all tables of data returned by the stored procedure. 
-   * 
+   * An array representation of all tables of data returned by the stored procedure.
+   *
    * @var array
    */
   protected $tables;
-  
+
   /**
    * Initialize the object
-   * 
+   *
    * @param SimpleXMLElement $result
-   * 
+   *
    */
   public function __construct($result) {
 
@@ -64,7 +64,7 @@ class StoredProcedureResult
     $this->schema = simplexml_load_string($result->schema);
     $this->setTableCount();
     $this->setTables();
-    
+
   }
 
   /**
@@ -96,10 +96,10 @@ class StoredProcedureResult
    */
   public function getTable($key = 0) {
 
-    if( $this->tables && isset($this->tables[$key]) ) {
-      return $this->tables[$key];  
+    try {
+      return $this->tables[$key];
     }
-    else {
+    catch(\Exception $e) {
       throw new MinistryPlatformException("The requested table does not exist.");
     }
 
@@ -109,10 +109,10 @@ class StoredProcedureResult
    * Associative array of values from a Stored Procedure Table.
    *
    * When a stored procedure table returns an array of arrays, this can be helpful
-   * in retrieving only the first two fields of data as a key value pair. 
-   * 
+   * in retrieving only the first two fields of data as a key value pair.
+   *
    * For example, an array that contains a Prefix_ID and Prefix_Name would
-   * ideally provide an a value of $prefixes[Prefix_ID] => Prefix_Name. 
+   * ideally provide an a value of $prefixes[Prefix_ID] => Prefix_Name.
    * This is precisely what this method will do. Please note that it
    * will ignore and discard any additional fields that may be in
    * the array.
@@ -208,14 +208,14 @@ class StoredProcedureResult
     foreach($this->result->NewDataSet as $table) {
 
       foreach((array)$table as $contents) {
-        
+
         $records = $this->processTableContents($contents);
 
         $tables[$table_index] = $records;
         $table_index++;
 
       }
-      
+
     }
 
     $this->tables = $tables;
@@ -228,9 +228,9 @@ class StoredProcedureResult
    * Digest the table contents.
    *
    * Convert XML Element contents into one or more arrays of data.
-   * 
+   *
    * @param  SimpleXMLElement $contents
-   * @return array 
+   * @return array
    */
   protected function processTableContents($contents) {
 
@@ -258,7 +258,7 @@ class StoredProcedureResult
    * Process a single Element into an array of elements.
    *
    * Also detects nested elements and processes those, and handles some data type detection.
-   * 
+   *
    * @param  SimpleXMLElement $element
    * @return array
    */
@@ -266,11 +266,11 @@ class StoredProcedureResult
 
     $records = [];
     foreach((array)$element as $field=>$record) {
-      
+
       // Cast to string to prevent empty strings from being set to
       // empty arrays.
       $value = (string)$record;
-      
+
       // handle SimpleXMLElement values
       // handle booleans
       // handle INT values
@@ -305,8 +305,8 @@ class StoredProcedureResult
 
   /**
    * Error handling for Stored Procedure API calls.
-   * 
-   * Check to see if the API call returned an error. If so, throw 
+   *
+   * Check to see if the API call returned an error. If so, throw
    * an exception and prevent things form continuing on.
    */
   protected function checkForErrors() {
